@@ -39,11 +39,9 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 //#ifdef JAVA6
-/*
 import java.sql.NClob;
 import java.sql.RowId;
 import java.sql.SQLXML;
-*/
 
 //#endif JAVA6
 import java.sql.PreparedStatement;
@@ -2293,7 +2291,6 @@ implements PreparedStatement {
     }
 
 //#ifdef JAVA6
-/*
     public void setPoolable(boolean poolable) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -2403,7 +2400,6 @@ implements PreparedStatement {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 }

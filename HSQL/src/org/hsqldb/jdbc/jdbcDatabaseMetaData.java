@@ -37,9 +37,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 //#ifdef JAVA6
-/*
 import java.sql.RowIdLifetime;
-*/
 
 //#endif JAVA6
 import org.hsqldb.Column;
@@ -5650,7 +5648,6 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     }
 
 //#ifdef JAVA6
-/*
     public RowIdLifetime getRowIdLifetime() throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -5694,7 +5691,6 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 }

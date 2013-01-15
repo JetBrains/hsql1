@@ -383,7 +383,6 @@ public class jdbcParameterMetaData implements ParameterMetaData {
     }
 
 //#ifdef JAVA6
-/*
     public <T> T unwrap(Class<T> iface) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -393,7 +392,6 @@ public class jdbcParameterMetaData implements ParameterMetaData {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 }

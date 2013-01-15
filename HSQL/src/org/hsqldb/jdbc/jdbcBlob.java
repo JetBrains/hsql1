@@ -462,7 +462,6 @@ public class jdbcBlob implements Blob {
     }
 
 //#ifdef JAVA6
-/*
     public void free() throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -472,7 +471,6 @@ public class jdbcBlob implements Blob {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 

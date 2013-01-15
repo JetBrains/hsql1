@@ -1588,7 +1588,6 @@ public class jdbcStatement implements Statement {
         }
     }
 //#ifdef JAVA6
-/*
     public void setPoolable(boolean poolable) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -1608,6 +1607,5 @@ public class jdbcStatement implements Statement {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 //#endif JAVA6
 }

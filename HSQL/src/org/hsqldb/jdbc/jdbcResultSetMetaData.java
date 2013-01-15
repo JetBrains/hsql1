@@ -1147,7 +1147,6 @@ public class jdbcResultSetMetaData implements ResultSetMetaData {
     }
 
 //#ifdef JAVA6
-/*
     public <T> T unwrap(Class<T> iface) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -1157,7 +1156,6 @@ public class jdbcResultSetMetaData implements ResultSetMetaData {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 }

@@ -80,11 +80,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 //#ifdef JAVA6
-/*
 import java.sql.RowId;
 import java.sql.NClob;
 import java.sql.SQLXML;
-*/
 
 //#endif JAVA6
 import java.sql.SQLException;
@@ -5079,7 +5077,6 @@ public class jdbcResultSet implements ResultSet {
     }
 
 //#ifdef JAVA6
-/*
     public RowId getRowId(int columnIndex) throws SQLException
     {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -5329,7 +5326,6 @@ public class jdbcResultSet implements ResultSet {
     {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-*/
 
 //#endif JAVA6
 }
