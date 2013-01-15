@@ -1,5 +1,6 @@
 # Idea #
 out
+workspace.xml
 
 # Java #
 *.class
@@ -11,3 +12,4 @@ out
 .CVS
 .cvsignore
 .svn
+
