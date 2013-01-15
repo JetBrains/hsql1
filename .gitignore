@@ -1,6 +1,8 @@
-*.class
+# Idea #
+out
 
-# Package Files #
+# Java #
+*.class
 *.jar
 *.war
 *.ear
