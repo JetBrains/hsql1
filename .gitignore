@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+
+# Legacy Stuff #
+.CVS
+.cvsignore
+.svn
