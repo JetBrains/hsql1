@@ -1,0 +1,45 @@
+.topbox {  
+	font-size: medium;
+	font-style: normal; 
+	border: 1px #99CCFF solid; 
+	padding-right: 10px; 
+	padding-left: 10px
+}
+
+.topbox table {
+	font-size: medium;
+}
+
+.textbox { 
+	border: 1px #99CCFF solid; 
+	padding-right: 10px; 
+	padding-left: 10px; 
+	margin-top: 10px;
+}
+
+tt { font-size: medium; }
+dt { font-size: medium; }
+
+body  {
+	font-family : verdana,arial,helvetica,sans-serif;
+	font-size: small;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+table {
+	font-family : verdana,arial,helvetica,sans-serif;
+	font-size: small;
+}
+
+pre { font-size: medium; }
+
+:link { text-decoration:none; }
+:visited { text-decoration:none; }
+:link:active,:visited:active { text-decoration:none; }
+:link:hover,:visited:hover { text-decoration:underline; color:#0066FF; }
+
+h6 {
+	font-size: 80%;
+	font-weight: normal;
+}

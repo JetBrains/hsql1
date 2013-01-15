@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>SQL Schema Notes</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+<p>Notes from the SQL 2003 specs</p>
+<p>An SQL-schema is a persistent descriptor that includes: </p>
+<p>The name of the SQL-schema. [Fine]</p>
+<p>The &lt;authorization identifier&gt; of the owner of the SQL-schema. [we need 
+  a schema&lt;=&gt;owner user mapping (can be either implicit or explicit), right? 
+  Initially, this can be implicitly the admin role, granting any admin user owner 
+  rights, at least partially preserving existing authorization semantics?]</p>
+<p>The name of the default character set for the SQL-schema.[later, not now, right?]</p>
+<p>The &lt;schema path specification&gt; defining the SQL-path for SQL-invoked 
+  routines for the SQL-schema. [Not worth considering until we have a schema-qualified 
+  database class loader in production and/or a PSM/embedded PL implementation 
+  to worry about]</p>
+<p>The descriptor of every component of the SQL-schema. [Fine]</p>
+<p>In this part of ISO/IEC 9075, the term schema is used only in the sense of 
+  SQL-schema. The persistent objects described by the descriptors are said to 
+  be owned by or to have been created by the &lt;authorization identifier&gt; 
+  of the schema. </p>
+<p>Each component descriptor is one of: </p>
+<p>A domain descriptor. [Not yet implemented]<br>
+  A base table descriptor. [Fine] <br>
+  A view descriptor. [Fine]<br>
+  A constraint descriptor. [Fine]<br>
+  A privilege descriptor. [Fine]<br>
+  A character set descriptor. [Not yet implemented] <br>
+  A collation descriptor. [Not yet implemented]<br>
+  A transliteration descriptor. [Not yet implemented] <br>
+  A user-defined type descriptor. [Not yet implemented] <br>
+  A routine descriptor. [Not yet implemented]<br>
+  A sequence generator descriptor. [Fine]</p>
+<p>[Maybe we need to (re)think about HSQLDB-specific extensions, such as class 
+  grants]</p>
+<p>A schema is created initially using a &lt;schema definition&gt; and may be 
+  subsequently modified incrementally over time by the execution of &lt;SQL schema 
+  statement&gt;s. [Obviously needs &lt;schema definition&gt; DDL support]</p>
+<p>&lt;schema name&gt;s are unique within a catalog. [Will explicit catalog specfication 
+  (a.k.a. pan-database DDL/DML) ever be possible within a single, purely HSQLDB 
+  SQL environment?]</p>
+<p>A &lt;schema name&gt; is explicitly or implicitly qualified by a &lt;catalog 
+  name&gt; that identifies a catalog. [Fine]</p>
+<p>Base tables and views are identified by &lt;table name&gt;s. [Fine]</p>
+<p>A &lt;table name&gt; consists of a &lt;schema name&gt; and an &lt;identifier&gt;. 
+  [Fine]</p>
+<p>The &lt;schema name&gt; identifies the schema in which a persistent base table 
+  or view identified by the &lt;table name&gt; is defined. [Fine]</p>
+<p>Base tables and views defined in different schemas can have &lt;identifier&gt;s 
+  that are equal according to the General Rules of Subclause 8.2, &lt;comparison 
+  predicate&gt; . [Fine]</p>
+<p>If a reference to a &lt;table name&gt; does not explicitly contain a &lt;schema 
+  name&gt;, then a specific &lt;schema name&gt; is implied. The particular &lt;schema 
+  name&gt; associated with such a &lt;table name&gt; depends on the context in 
+  which the &lt;table name&gt; appears and is governed by the rules for &lt;schema 
+  qualified name&gt;. [Have we settled on rules regarding implicit schema?] </p>
+<p>If a reference to an SQL-invoked routine that is contained in a &lt;routine 
+  invocation&gt; does not explicitly contain a &lt;schema name&gt;, then the SQL-invoked 
+  routine is selected from the SQL-path of the schema. [Do we have a roadmap for 
+  PSM/Embedded PL/Schema-qualified database class loader, as it pertains to SQL-path 
+  for SQL-invoked routines?]</p>
+<p>The containing schema of an &lt;SQL schema statement&gt; is defined as the 
+  schema identified by the &lt;schema name&gt; implicitly or explicitly contained 
+  in the name of the object that is created or manipulated by that SQLstatement. 
+  [Fine]</p>
+<p></p>
+</body>
+</html>

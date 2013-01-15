@@ -1,0 +1,236 @@
+$Id: schemastrategy.txt,v 1.1 2005/04/12 17:19:50 unsaved Exp $
+
+PROVISIONAL SCHEMA IMPLEMENTATION STRATEGY
+==========================================
+
+++ means, not for implementation any time soon.
+
+DEFINITIONS
+[If there are better names, or the specs use different names for these items,
+please fix them]
+
+    Role:  A generalization of USER that can be used in some constructs
+    in the exact same place as USER can be used.  For now, we support
+    only the single group "DBA", whose membership is automatically
+    maintained (see next paragraph).  For now, our DBA Role may only be 
+    used when maintaining schema Assigner Lists (explaiend below).
+    ++Eventually, SQL will be used to add and remove USERS to/from Roles.
+    ++Eventually, we will have the ability to use Roles with the GRANT
+    and REVOKE commands.
+
+    DBA Role:  For now, this is a Role that automatically contains all 
+    users with the ADMIN option.  We call the role "DBA" instead of "ADMIN"
+    in order to avoid ambiguity between the ADMIN option and the DBA role.
+    ++Eventually, either (a) the ADMIN option should just add a user to 
+    the DBA role or (b) the normal role maintenance SQL command will be
+    used to add a user to the DBA role, thus greatly reducing the amount
+    of special magic in this area.  All ADMIN privilege checks will be
+    based on the DBA role instead of the ADMIN option, or we could make
+    up additional special roles to further discriminate different 
+    administrative privileges.
+
+    Schema-able objects:  Database objects which are always associated 
+    with a schema of name S such that the full name of the object is 
+    S.basename.  Consists of the following object types: tables, views,
+    sequences, constraints, indees, aliases, triggers.
+
+    Full name:  The name of a schema-able object consisting of the
+    shema name plus base name, like schemaName.baseName.
+
+    Assign:  The action of associating a schema with a schema-able
+    object.  For example, I can assign schema S to a table, after which
+    the full name of the table will be S.tableBasename.
+    [For sake of consistency in discussion and documentation, we
+    arbitrarily choose to speak of somebody assigning a schema to a
+    Schema-able object (in preference to the converse).]
+
+    Schema-assign privilege:  The permission for a specific user/role to
+    assign a specific schema to objects.  This is not a "right" which
+    is granted/revoked with the GRANT or REVOKE commands, because
+    "rights" are granted/revoked ON individual DB objects (++and with 
+    roles in the future), whereas schema-assign privileges are
+    given/removed ON individual schemas.
+    For now, we are not supporting schema RE-assignment.  If you
+    want to change the schema of an object, re-create the object.
+    (++One also needs Schema-assign privilege to remove a schema
+    assignment from an object, i.e., to change a schema from x to y
+    like "ALTER TABLE x.a RENAME TO y.a", one needs assign privs for
+    schema x and schema y).
+
+    Schema:  An object consisting of a "name" plus an "Assigner List".
+
+    Assigner List:  A list of DB login users/roles with permissions to
+    "assign" this schema to objects (i.e., users have schema-assign
+    privilege for this schema).
+    The assigner list may have several users/roles, but must always
+    contain the special role "DBA".  This seems to contradict the SQL 2003 
+    spec which requires an "owner", but, in my opinion, our assign-list
+    is just a powerful generalization of ownership.  Using this
+    nomenclature, "DBA"s are part-owners of every DB object.  ++If a
+    user creates an object and then the user account is removed, any DBA
+    may then give the object to another user by assiging some other schema
+    to the object.  (I.e., when the user account is removed, that
+    user name will be removed from the Assigner List of all schemas.
+    However, DBA will always remain on the Assigner Lists, so any DBA may
+    change referring tables to use other schemas by running commands like
+    "ALTER TABLE revokeduser.x RENAME TO existinguser.y;", and he may 
+    remove the schema after all objects have been reassigned:
+    "DROP SCHEMA revokeduser;".)
+    [IMPORTANT IMPLEMENTATION NOTE:  When schemas are instantiated,
+    make sure to always add "DBA" to the Assigner List.]
+
+    Session schema.  Schemas are database objects that are assigned
+    to other objects.  Schema X may be assigned to tables A and B.
+    A "Session schema" is the schema that is used as the default schema 
+    for objects named in SQL commands issued from this JDBC session.
+    I.e., if a SQL command refers to an object with explicitly
+    specifying a schema, then the current Session schema is assumed.
+    Example:  If SQL refers to object "X", then it is first looked 
+    for with full name "defaultSchema.X".  (See 
+    "Special consideration..." below for an exception to this).
+
+    INFORMATION_SCHEMA:  A special schema which can not be removed.
+    Like all Assigner Lists, this one contains the "DBA" role.
+    System tables do not have their schema stored since it is a
+    given that their schema is INFORMATION_SCHEMA.  System tables are
+    special in that we know they are to be accessed via the
+    INFORMATION_SCHEMA schema without having to look that up.
+
+    PUBLIC schema:  We do now want to encourage mixing of user and
+    system objects in the same schema, so we will supply a 
+    startup user schema, "PUBLIC".
+
+Special consideration for inter-dependent objects.
+
+    By inter-dependent objects, I mean indexes and constraints which
+    are very tightly bound to tables.  (There may be other examples).
+    We may or may not want to require and enforce that these objects
+    have the same schema as their table, and automatically update
+    the schema of these objects when the schema of the depended-upon
+    table is changed.
+
+Object naming resolution strategy.
+
+    If a full name is specified, then the exact object is already known.
+    This goes for CREATE statements too.  "CREATE TABLE s.x (i INT);"
+    will create the object with full name s.x.
+    [We may require that constraints names in the CREATE command be of
+    the same schema as the table.
+    We may require that the schema of indexes be the same as that of
+    the target table.]
+
+    If only basename was specified, then we normally look for
+    sessionSchema.basename first. For CREATE statements, this is
+    exactly what is used:  "CREATE TABLE x (i INT);" will create
+    sessionSchema.x.  For every command other than CREATE, if 
+    sessionSchema.basename is not found, then we look for
+    SYSTEM.basename.  This is so that users don't have to specify
+    the schema in order to use system tables.
+
+    IMPORTANT:  Here we are talking only about resolution.  Whether the
+    user has the "right" to perform the requested action on that object
+    is entirely independent.
+
+Influence of Schema upon object access/modificaton rights.
+
+    The only inter-dependency is that, since every object must be
+    associated with a schema, every object creation must perform an 
+    assign, and the ability to do this assign is determined by the schema's
+    Assigner List.  This has no end-user implication now, since only
+    ADMINs can create tables, all ADMINs have DBA role, and all schemas
+    have DBA in the Assigner List.  Therefore, all ADMINs have the
+    privilege to create any table and to assign it to any schema.
+    ++In the future, when a non-ADMIN user attempts to create object S.X,
+    he will need to have the create right to objects of the given type,
+    and he will need to have Schema-assign privilege for S.
+    [IMPLEMENTATION NOTE:  The Schema privs should be checked first to
+    avoid creating objects unnecessarily, just as we have all-allong
+    checked for duplicate object names before creation.]
+
+    "ALTER TABLE x.t RENAME TO y.t;" is unsupported for now.  (I.e.,
+    changing the schema of an object).
+    ++Since every Schema-able object has a data member indicating the
+    schema, one needs permission to modify that table object in order
+    to change the schema.  Therefore, in order to change the schema
+    of an object like
+        "ALTER TABLE x.t RENAME TO y.t;"
+    he need the right to alter the table (currently ADMIN), plus 
+    Schema-assign privilege for both schemas x and y.
+    Once again, there is no end-user implication now, since only
+    ADMINs can do ALTER TABLE's, and ADMINs have "DBA" role.
+
+    Just like now, access and modification rights (for select, delete,
+    insert, etc.) for any object can be set by any ADMIN.
+    ++When we allow non-Admin users to create objects, the object
+    creators will also be able to set these modification rights for
+    their own objects.  This is independent of this schema strategy,
+    but will work beautifully for setting up independent user work
+    environments as explained at the bottom of this document.
+
+SCHEMA <--> USER binding
+
+    I think that Fred wants schemas to be usable independent of users.
+    That seems to be contrary to the SQL spec verbage about ownership,
+    but I believe that the strategy outlined above fully supports both
+    explicit user-independent schemas, and automatic user-linked schemas.
+
+    We will add a field to our User object, "defaultSchema".  This will
+    not be used for the User-Independent mode.
+
+
+(Explicit) User-Independent use of Schemas
+
+    SQL spec says that every Schema-able object must be associated with
+    a schema.  Therefore, all system tables which are loaded at DB
+    initialization will thereafter be referred to with the 
+    INFORMATION_SCHEMA schema.  I.e., INFORMATION_SCHEMA is the schema
+    for sytem tables.
+
+    When a user logs in, they automatically get default schema of PUBLIC.
+    This is safe because we know that the PUBLIC schema always exists.
+    If a user refers to "basename", that will resolve to "PUBLIC.basename",
+    and then "INFORMATION_SCHEMA.basename" if the former was not found.
+    They can, of course, use any full names that they want, like "jane.t1".
+
+    Users can run "SET SESSION s2;" to change their default schema for
+    the current JDBC session.  (Regardless of whether they have assign
+    privs for s2).
+
+    Rights to actually create, select from, insert to, drop, objects are
+    what they are now, with the additional constraint that they can't
+    modify an object's schema setting unless they have the Schema
+    Assignment priv for that schema.  This has no implication now, since
+    an ADMIN will have the "DBA" role to do so.  ++But in the future,
+    this will work great for non-ADMIN users with CREATE rights:  They
+    will be able to create their own objects, but no INFORMATION_SCHEMA
+    objects (or objects in anybody else's schemas) unless those 
+    Assignment privs are explicitly given.
+
+User-Linked Schemas
+
+    SQL spec says that every Schema-able object must be associated with
+    a schema.  Therefore, all system tables which are loaded at DB
+    initialization will thereafter be referred to with the 
+    INFORMATION_SCHEMA schema.  I.e., INFORMATION_SCHEMA is the schema
+    for sytem tables.
+
+    When "CREATE USER" is run, a new schema is create with same name as
+    the user name, and their user.defaultSchema member will be set to this
+    name.  The new schema is created with initial Assigner List of "DBA"
+    and this new user.    (++Once we have GRANT enhanced, we'll also run 
+    "GRANT TABLE CREATE TO newuser;" at this time so that, by default,
+    people can create and modify objects only in their own work environments).
+
+    When users log in, their default schema will be set to whatever their
+    user.defaultSchema is.  They can change it at any time with
+    "SET SCHEMA s2;".  So, after running "CREATE USER bob PASSWORD slob;", 
+    when Bob logs in, his default schema will be "BOB".
+
+    Users can set their initial Session schema with a command something like
+    "ALTER USER/ROLE u SET DEFAULT SCHEMA s;".
+
+    Multiple users can share a work environment by manually changing
+    their default schema after they log in, or by changing their
+    user.defaultSchema.  ++ Maintaining privileges on a group of objects
+    shared by a group of workers will really be easy once we have Roles
+    working with GRANT/REVOKE.

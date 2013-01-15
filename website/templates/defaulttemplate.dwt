@@ -1,0 +1,65 @@
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html><head>
+<link rel="stylesheet" href="../web/style.css" type="text/css">
+<!-- #BeginEditable "doctitle" -->
+<title>hsqldb at SourceForge.net</title>
+<!-- #EndEditable -->
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="hsqldb: Full-featured 100% Java ORDBMS" name=description>
+<meta 
+content="Java,, WWW, Java database, JDBC, RDBMS, SQL, Database, ORDBMS, hsqldb, HypersonicSQL" 
+name=keywords>
+<meta content=INDEX,NOFOLLOW name=robots>
+
+<link title=hsqldb 
+href="http://hsqldb.sourceforge.net" rel=contents>
+<link 
+title="Copyright by hsqldb Development Group" 
+rel=copyright href="http://hsqldb.sourceforge.net">
+</head>
+<body text=#000000 vlink=#0000FF alink=#00FF00 link=#0000FF bgcolor=#FFFFFF>
+<table width="100%" summary=Navigation class="topbox">
+  <tr> 
+      
+    <td> 
+      <h3><a href="http://hsqldb.sourceforge.net"><img src="../images/line-1.gif" width="154" height="59" alt="hsqldb.org Home Page" border="0" align="top"></a> 
+        <a href="../index.html" target="_top"><font color="#0000FF">hsqldb</font></a> 
+        - 100% Java Database </h3>
+      <p>Lightweight 100% Java SQL Database Engine<br>
+            <font size="-7">A Project of <a href="http://hsqldb.sourceforge.net" target="_top">the 
+        hsqldb Development Team</a></font></p>
+         </td>
+      <td valign=top width="45%"> 
+         <dl> 
+            <dt><font size="-1">General </font> 
+            
+        <dd><font size="-1">&lt;<a href="http://sourceforge.net/project/showfiles.php?group_id=23316&release_id=254279" target="_top">Download</a>&gt; 
+          &lt;<a href="http://sourceforge.net/news/?group_id=23316" target="_top">News</a>&gt;&lt;<a href="http://sourceforge.net/projects/hsqldb" target="_top">Project 
+          Page</a>&gt; &lt;<a 
+        href="../web/hsqlLicense.html" target="_top">License</a>&gt; </font> 
+        <dt><font size="-1">Contact and Support </font> 
+            <dd><font size="-1"> &lt;<a href="../web/hsqlSupport.html" target="_top">Support</a>&gt;  &lt;<a href="../web/hsqlFAQ.html" target="_top">FAQ</a>&gt; 
+          </font> 
+            <dt><font size="-1">Documentation and Development </font> 
+            <dd><font size="-1">&lt;<a href="../web/hsqlFeatures.html" target="_top">Features</a>&gt; 
+          &lt;<a href="../web/hsqlDocsFrame.html" target="_top">Documentation</a>&gt; &lt;<a href="../web/hsqlDevelopment.html" target="_top">Developers</a>&gt; &lt;<a href="../web/changelog.html" target="_top">Changes</a>&gt; </font></dd>
+         </dl>
+      </td>
+   </tr>
+</table>
+ 
+ <div class="textbox">
+<!-- #BeginEditable "body" -->{body}<!-- #EndEditable -->
+ </div>
+<p> 
+ 
+<a href="http://sourceforge.net"> <img src="http://sourceforge.net/sflogo.php?group_id=23316" width="95" height="32" border="0" alt="SourceForge Logo"></a> 
+<!-- #BeginEditable "extralogo" -->{extralogo}<!-- #EndEditable --> 
+<h6 align="center"> This page last updated <!-- #BeginEditable "update" -->{update}<!-- #EndEditable --></h6>
+<h6> Java is a Trademark of Sun Microsystems, Inc. (under various licenses). <i>Contents 
+  of this page are &copy;2001-2004 <a href="http://hsqldb.sourceforge.net" target="_top">The 
+  hsqldb Development Group.</a> All rights reserved under the terms of the applicable 
+  <a href="../web/hsqlLicense.html" target="_top">Licenses</a>. Questions and 
+  comments about this page may be addressed to the <a href="mailto:dedmike@users.sourceforge.net">Webmaster</a>.</i></h6>
+</body>

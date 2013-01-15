@@ -1,0 +1,998 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html><!-- #BeginTemplate "/Templates/defaulttemplate.dwt" --><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<!-- #BeginEditable "doctitle" -->
+<title>hsqldb at SourceForge.net</title>
+<!-- #EndEditable -->
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="hsqldb: Full-featured 100% Java ORDBMS" name=description>
+<meta 
+content="Java,, WWW, Java database, JDBC, RDBMS, SQL, Database, ORDBMS, hsqldb, HypersonicSQL" 
+name=keywords>
+<meta content=INDEX,NOFOLLOW name=robots>
+
+<link title=hsqldb 
+href="http://hsqldb.sourceforge.net" rel=contents>
+<link 
+title="Copyright by hsqldb Development Group" 
+rel=copyright href="http://hsqldb.sourceforge.net">
+</head>
+<body text=#000000 vlink=#0000FF alink=#00FF00 link=#0000FF bgcolor=#FFFFFF>
+<table width="100%" summary=Navigation class="topbox">
+  <tr> 
+      
+    <td> 
+      <h3><a href="http://hsqldb.sourceforge.net"><img src="../images/line-1.gif" width="154" height="59" alt="hsqldb.org Home Page" border="0" align="top"></a> 
+        <a href="../index.html" target="_top"><font color="#0000FF">hsqldb</font></a> 
+        - 100% Java Database </h3>
+      <p>Lightweight 100% Java SQL Database Engine<br>
+            <font size="-7">A Project of <a href="http://hsqldb.sourceforge.net" target="_top">the 
+        hsqldb Development Team</a></font></p>
+         </td>
+      <td valign=top width="45%"> 
+         <dl> 
+            <dt><font size="-1">General </font> 
+            
+        <dd><font size="-1">&lt;<a href="http://sourceforge.net/project/showfiles.php?group_id=23316&release_id=254279" target="_top">Download</a>&gt; 
+          &lt;<a href="http://sourceforge.net/news/?group_id=23316" target="_top">News</a>&gt;&lt;<a href="http://sourceforge.net/projects/hsqldb" target="_top">Project 
+          Page</a>&gt; &lt;<a 
+        href="hsqlLicense.html" target="_top">License</a>&gt; </font> 
+        <dt><font size="-1">Contact and Support </font> 
+            <dd><font size="-1"> &lt;<a href="hsqlSupport.html" target="_top">Support</a>&gt;  &lt;<a href="hsqlFAQ.html" target="_top">FAQ</a>&gt; 
+          </font> 
+            <dt><font size="-1">Documentation and Development </font> 
+            <dd><font size="-1">&lt;<a href="hsqlFeatures.html" target="_top">Features</a>&gt; 
+          &lt;<a href="hsqlDocsFrame.html" target="_top">Documentation</a>&gt; &lt;<a href="hsqlDevelopment.html" target="_top">Developers</a>&gt; &lt;<a href="changelog.html" target="_top">Changes</a>&gt; </font></dd>
+         </dl>
+      </td>
+   </tr>
+</table>
+ 
+ <div class="textbox">
+<!-- #BeginEditable "body" --> 
+  <p>HSQLDB 1.7.2 CHANGE LOG</p>
+  <p><br>
+    The development of 1.7.2 began in late 2002 with a plan to release the new 
+    version within 6 months. Several alpha versions, culminating in ALPHA_M, were 
+    released in the first three months and featured most of the intended enhancements. 
+    However, when newly written code for system tables was introduced, many changes 
+    had to be made to internal code to accommodate the reporting requirements. 
+    This was followed from around April 2003 with efforts to separate query compilation 
+    from execution. Other developments to allow multiple databases, better query 
+    processing, more advanced SQL keywords, etc. took place simultaneously, resulting 
+    in an extended scope for 1.7.2 and extensive addition and rewrite of several 
+    key classes. The next alpha version was released in September, followed by 
+    a further six, until the first Release Candidate became available at the end 
+    of 2003. Since then, all efforts have been focused on fixing bugs and inconsistencies, 
+    with 7 additional Release Candidates issued.</p>
+  <p>As a result, 1.7.2 features major changes to the database engine. Existing 
+    applications that work with previous versions may need modifications to work 
+    with the new version. Changes are listed here and in the rest of the documentation.</p>
+  <p>I would like to thank all developers, testers and users who have contributed 
+    to this effort.</p>
+  <p><br>
+    June 2004</p>
+  <p>Fred Toussi</p>
+  <p>Maintainer, HSQLDB Project<br>
+    http://hsqldb.sourceforge.net</p>
+  <p><br>
+    ----------------------------------------------------<br>
+    ----------------------------------------------------</p>
+  <p>SQL ENHANCEMENTS AND CHANGES</p>
+  <p><br>
+    ----------------</p>
+  <p>DDL</p>
+  <p>Some new restrictions have been imposed:</p>
+  <p>CONSTRAINT names must be unique within each database (same with INDEX names).<br>
+    Size / precision / scale values for several types are now disallowed. Allowed 
+    types are: CHAR(n), VARCHAR(n), DOUBLE(n), DECIMAL(n,m)</p>
+  <p>In column default value specification, functions such as CURRENT_TIME, CURRENT_DATA, 
+    etc. should not be enclosed in quotes. New function CURRENT_USER can also 
+    be used.</p>
+  <p>SQL keywords are not allowed as table or column names unless they are double-quoted. 
+  </p>
+  <p>----------------</p>
+  <p>VIEW</p>
+  <p><br>
+    View definitions can now have a column name list:</p>
+  <p>CREATE VIEW &lt;viewname&gt; [(&lt;colnmae&gt;, ...)] AS SELECT ....</p>
+  <p>ALTER TABLE commands take into account the views that reference the table 
+    and prevent illegal changes.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>CHECK</p>
+  <p></p>
+  <p>Support for CHECK constraints that apply to the modified/inserted row only. 
+    This can be added via ALTER TABLE ADD CHECK() or in table definition.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>QUERY PROCESSING</p>
+  <p></p>
+  <p>Query processing has been extensively enhanced in this release and better 
+    SQL standard compliance has been achieved. Major implications of the recent 
+    changes are as follows:</p>
+  <p>Columns in correlated subqueries are resolved independently first. If there 
+    is an unresolved column, then the surrounding context is used to resolve it. 
+    This is opposite the resolution order previously enforced in the engine.</p>
+  <p>Some ambiguities and errors in ORDER BY clauses are now caught.</p>
+  <p>UNION and other set queries accept only one ORDER BY clause at the end. In 
+    this clause, column indexes or column names in the first select are allowed 
+    as sort specification e.g.:</p>
+  <p>SELECT .. UNION SELECT .. ORDER BY 1 DESC, 5, 3</p>
+  <p>The implemntation of UNION, EXCEPT and INTERSECT set operations has been 
+    rewritten to comply with SQL standards.</p>
+  <p>When multiple set operations are present in a query, they are now evaluated 
+    from left to right, with INTERSECT taking precedence over the rest.</p>
+  <p>It is now possible to use parentheses around multiple (or single) select 
+    statements with set operations to change the order of evalation.E.g.:</p>
+  <p>((SELECT * FROM A EXCEPT SELECT * FROM B) INTERSECT SELECT * FROM D UNION 
+    SELECT * FROM E)</p>
+  <p>The above applies to all cases where a SELECT can be used except a single 
+    value select inside another select. Eg.</p>
+  <p>SELECT a, b, SELECT asinglevalue FROM anothertable WHERE ..., FROM atable 
+    JOIN ... </p>
+  <p>----------------</p>
+  <p>IMPROVEMENTS TO UPDATE AND INSERT</p>
+  <p></p>
+  <p>Certain types of UPDATES and INSERTS that previously failed due to blanket 
+    application of UNIQUE constraints now work.</p>
+  <p>Examples include UPDATE ... SET col = col + 1 where col is an identity column 
+    or INSERT a self referencing row under FOREIGN key constraints.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>AGGREGATES, GROUP BY, HAVING</p>
+  <p></p>
+  <p>DISTINCT aggregates are now supported.</p>
+  <p>Aggregates on all numeric type columns are now supported. Expressions are 
+    allowed as aggregate function parameter.</p>
+  <p>SUM returns a BIGINT for TINYINT, SMALLINT and INTEGER columns. It returns 
+    a DECIMAL for BIGINT columns (scale 0). SUM of a DECIMAL column has the same 
+    scale as the column.</p>
+  <p>AVG returns the same type as the column or the expression in its argument.</p>
+  <p>Aggregates with GROUP BY do not return any rows if table is empty</p>
+  <p>Fully enforced GROUP BY rules including support for HAVING conditions</p>
+  <p><br>
+    ----------------</p>
+  <p>JOINS</p>
+  <p></p>
+  <p>Extensive rewrite of join processing abolishes the requirement for an index 
+    on any joined columns.</p>
+  <p>Problems with OUTER and INNER joins returning incorrect results have been 
+    fixed and results are correct in all cases.</p>
+  <p>When two tables are joined, rows resulting from joining null values in the 
+    joined columns are no longer returned.</p>
+  <p>Most expressions are supported in the join condition (JOIN &lt;table&gt; 
+    ON ....).</p>
+  <p>Outer join conditions can now include most comparison operators, as well 
+    as OR logical operators. For example:</p>
+  <p>LEFT OUTER JOIN atable ON a=b AND c&gt;d OR a=2 ...</p>
+  <p>Illegal forward table references are no longer allowed in join conditions.</p>
+  <p>There are many other small improvements and fixes, including:</p>
+  <p></p>
+  <p>----------------</p>
+  <p>NULLS</p>
+  <p></p>
+  <p>Support for multiple rows with null fields under unique constraints.</p>
+  <p>Exclusion of NULL values from results of queries with range conditions. </p>
+  <p></p>
+  <p>----------------</p>
+  <p>FOREIGN KEY</p>
+  <p></p>
+  <p>Full support for triggered actions, including foreign keys that reference 
+    the same table.</p>
+  <p>FORIEGN KEY ... ON UPDATE { CASCADE | SET NULL | SET DEFAULT } ON DELETE 
+    { CASCADE | SET NULL | SET DEFAULT }</p>
+  <p>Strict treatment of foreign key constraint requirements is now enforced. 
+    A foreign key declaration _requires_ a unique constraint to exist on the columns 
+    of the referenced table. This applies both to old and new databases. Duplicate 
+    foreign keys (with exactly the same column sets) are now disallowed.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>SEQUENCE</p>
+  <p></p>
+  <p>Support for sequences. Identity columns are now automatic sequence primary 
+    key columns that can be defined as INTEGER or BIGINT as follows:</p>
+  <p>GENERATED BY DEFAULT AS IDENTITY (START WITH &lt;n&gt;, INCREMENT BY &lt;m&gt;)</p>
+  <p>Named sequence objects can be defined with:</p>
+  <p>CREATE SEQUENCE &lt;sequencename&gt; [AS {INTEGER | BIGINT}] [START WITH 
+    &lt;startvalue&gt;] [INCREMENT BY &lt;incrementvalue&gt;];</p>
+  <p>And the next value can be retrieved with the following expression in SELECT, 
+    INSERT and UPDATE queries:</p>
+  <p>NEXT VALUE FOR &lt;sequencename&gt;</p>
+  <p></p>
+  <p>----------------</p>
+  <p>SQL FUNCTIONS</p>
+  <p><br>
+    Added support for a range of SQL style functions:</p>
+  <p><br>
+    CASE .. WHEN .. THEN .. [WHEN .. THEN ..] ELSE .. END</p>
+  <p>CASE WHEN .. THEN .. [WHEN .. THEN ..] ELSE ... END</p>
+  <p>NULLIF(.. , ..)</p>
+  <p>SUBSTRING(.. FROM .. FOR ..)</p>
+  <p>POSITION(.. IN ..)</p>
+  <p>TRIM( {LEADING | TRAILING .. } FROM ..)</p>
+  <p>EXTRACT({DAY | TIME |..} FROM ..)</p>
+  <p>COALESCE(.. , ..)</p>
+  <p></p>
+  <p>----------------</p>
+  <p>TRIGGER</p>
+  <p></p>
+  <p>It is now possible to execute triggers in the main execution thread. This 
+    allows uses for triggers that were not possible before, especially checking 
+    and modifying inserted values.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>DATETIME</p>
+  <p></p>
+  <p>Fixed the TIMESTAMPS, TIME and DATE normalisation issues.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>OTHER</p>
+  <p></p>
+  <p>IN value lists can now contain column values or expressions. See TestSelfQueries.txt 
+    for an example.</p>
+  <p><br>
+    LIKE has been debugged and optimised when possible.</p>
+  <p></p>
+  <p>----------------------------------------------------<br>
+    ----------------------------------------------------</p>
+  <p>JDBC ENHANCEMENTS</p>
+  <p></p>
+  <p>JDBC support for savepoints.</p>
+  <p>Support for JDBC batch execution with multiple-results. Both Statement and 
+    PreparedStatement batch modes are supported.</p>
+  <p>SSL support for server mode operation.</p>
+  <p></p>
+  <p>----------------</p>
+  <p>CONNECTION PROPERTY</p>
+  <p></p>
+  <p>A new property, ifexists={true|false} can be specified for connections. It 
+    has an effect only on connections to in-process databases. The default is 
+    false and corresponds to current behaviour. </p>
+  <p>If set true, the connection is opened only if the database files have already 
+    been created -- otherwise no new database is created and the connection attempt 
+    will fail. Example:</p>
+  <p>jdbc:hsqldb:hsql:file:mydb;ifexists=true</p>
+  <p>This property is intended to reduce problems resulting from wrong URL's which 
+    get translated to unintended new database files. It is recommended to use 
+    this property for troubleshooting.</p>
+  <p>Database properties can be specified for the first connection to a new file: 
+    or mem: database. This allows properties such as enforce_strict_size to be 
+    specified for mem: databases, or for a new file: database.</p>
+  <p>jdbc:hsqldb:hsql:mem:test;sql.enforce_strict_size=true</p>
+  <p></p>
+  <p>----------------</p>
+  <p>PREPARED STATEMENTS</p>
+  <p></p>
+  <p>Support for real PreparedStatements - major speedup.</p>
+  <p>Bug fixes ensure date / time, java object and binary values stored in in-process 
+    databases via prepared statements will not be altered if the object is modified 
+    outside the engine.</p>
+  <p>Full support for ResultSetMetaData</p>
+  <p>Full support for ParameterMetaData</p>
+  <p>Support for CLOB methods in ResultSet</p>
+  <p></p>
+  <p>----------------</p>
+  <p>TRANSACTIONS VIA WEB SERVER</p>
+  <p></p>
+  <p>Uniform support for transactions via HSQL and HTTP (WebServer and Servlet) 
+    protocols</p>
+  <p><br>
+    ----------------------------------------------------<br>
+    ----------------------------------------------------</p>
+  <p>OTHER ENHANCEMENTS</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>SPEED</p>
+  <p></p>
+  <p>Speed optimisation of joins with views and subqueries, using indexes to optimise 
+    join performance.</p>
+  <p>Improved index use for multiple key joins.</p>
+  <p>Further speed improvements in all logged modes</p>
+  <p>INSERT and UPDATE ops are faster by 5-20% in MEMORY tables, less in CACHED 
+    tables.</p>
+  <p>General speedup of CACHED table operation due to better management of the 
+    memory cache.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>DATABASE PACKAGING AND MODES</p>
+  <p></p>
+  <p>Two new options for databases: files_readonly and files_in_jar were added:</p>
+  <p><br>
+    FILE READ-ONLY</p>
+  <p><br>
+    If the property hsqldb.files_readonly=true is set in the database .properties 
+    file, no attempt is made to write the changes to data to file. Default, MEMORY 
+    tables can be read/write but TEXT and CACHED tables are treated as read-only.</p>
+  <p><br>
+    FILES IN JAR</p>
+  <p><br>
+    This option allows database files to be distributed in the application jar. 
+    We have changed the original contribution so that a special URL is used for 
+    this mode in the form of:</p>
+  <p>jdbc:hsqldb:res:&lt;path in jar&gt;</p>
+  <p>The URL type 'res' determines that the path that follows is a path into the 
+    JAR. The path must be all lowercase and begin with a forward slash.</p>
+  <p>The database can be readonly or files_readonly, depending on the value set 
+    in .properties file.</p>
+  <p><br>
+    'OTHER' DATA TYPE</p>
+  <p><br>
+    Change to handling of OTHER columns. It is no longer required that the classes 
+    for objects stored in OTHER columns to be available on the path of an HSQLDB 
+    engine running as a server. Classes must be available on the JDBC client's 
+    path.</p>
+  <p><br>
+    ----------------------------------------------------</p>
+  <p>MULTIPLE IN-MEMORY AND SERVER DATABASES</p>
+  <p></p>
+  <p>Support for multiple memory-only databases within the same JVM</p>
+  <p>Support for simultaneous multiple servers on different ports, multiple internal 
+    connections and multiple databases within the same JVM</p>
+  <p>Each HSQLDB server or webserver can now serve up to 10 different databases.</p>
+  <p>The server.properties and webserver.properties method for defining the databases 
+    has changed. The following properties should be used:</p>
+  <p>server.database.0 path_of_the_first_database<br>
+    server.dbname.0 alias_for_the_first_database</p>
+  <p>Up to 10 databases can be defined but they must start from 0. The same applies 
+    to command line arguments for Server and WebServer.</p>
+  <p>The URL's for connecting to servers should have the alias of the database 
+    at the end. For example, to connect to the HSQL protocol server on the localhost 
+    use:</p>
+  <p>jdbc:hsqldb:hsql://localhost/alias_for_the_database</p>
+  <p>where alias_for_the_database is the same string as defined in server.properties 
+    as server.dbname.n</p>
+  <p>If not explicitly set, the default for server.dbname.0 is &quot;&quot; (empty 
+    string) so that old URL types continue to work.</p>
+  <p>Multiple memory-only database are supported by the use of:</p>
+  <p>jdbc:hsqldb:mem:alias_for_the_first_database<br>
+    jdbc:hsqldb:mem:alias_for_the_second_database</p>
+  <p>Examples: jdbc:hsqldb:mem:db1 jdbc:hsqldb:mem:mydb</p>
+  <p>The connection type, 'file:', can be used for file database connections. 
+    Example below:</p>
+  <p>jdbc:hsqldb:file:mydb;ifexists=true</p>
+  <p>The URL for connecting to a Servlet HTTP server must have a forward-slash 
+    at the end. Servlet serves only one database.</p>
+  <p>jdbc:hsqldb:hsql://localhost:8080/servlet/HsqlServlet/</p>
+  <p><br>
+    ----------------------------------------------------</p>
+  <p>DATABASE METADATA</p>
+  <p><br>
+    System table support and java.sql.DatabaseMetadate have been overhauled.</p>
+  <p>Use SELECT * FROM SYSTEM_TABLES to see the full list.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>TEXT TABLES</p>
+  <p><br>
+    Enhanced TEXT table handling and reporting of errors in CSV (source) files</p>
+  <p>TEXT TABLES encoding of the source file can now be specified. UTF-8 and other 
+    encodings can be used.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>MEMORY USE AND OBJECT POOLING</p>
+  <p><br>
+    An Object pool has been incorporated. This reduces memory usage to varying 
+    degrees depending on the contents of database tables and speeds up the database 
+    in most cases. Currently the size of the pool is hard-coded but it will be 
+    user adjustable in a future version.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>PERSISTENCE</p>
+  <p><br>
+    ----------------</p>
+  <p>CHECKPOINT DEFRAG</p>
+  <p>Defragments the *.data file without shutting down the database</p>
+  <p><br>
+    ----------------</p>
+  <p>SET SCRIPTFORMAT {TEXT | BINARY | COMPRESSED }</p>
+  <p>Changes the format of the *.script file and performs a checkpoint.</p>
+  <p>Database script can be stored in binary or compressed binary formats, resulting 
+    in smaller size and faster loading.</p>
+  <p><br>
+    ----------------</p>
+  <p>The *.script file now contains only the DDL and data that is written at CHECKPOINT 
+    or SHUTDOWN. The COMPRESSED format has the side benefit of hiding the DDL 
+    and the admin password.</p>
+  <p>The *.log file now contains the statements executed since the last startup 
+    or CHECKPOINT. This file is in plain text format.</p>
+  <p>----------------</p>
+  <p>SET WRITE_DELAY {TRUE | FALSE}</p>
+  <p>SET WRITE_DELAY &lt;n&gt;</p>
+  <p>The behaviour of SET WRITE_DELAY has changed with the introduction of the 
+    sync() method to force the log to be written out completely to disk at given 
+    intervals.</p>
+  <p>SET WRITE_DELAY {TRUE | FALSE} is interpreted as synch every 60 seconds or 
+    1 second. SET WRITE_DELAY &lt;n&gt; where n is an integer is interpreted as 
+    synch every n seconds. The current default is 60 seconds which seems to provide 
+    the right balance. Under heavy INSERT/DELETE/UPDATE test conditions, the performance 
+    impact of SET WRITE_DELAY 1 is probably about 15% over that of SET WRITE_DELAY 
+    300.</p>
+  <p>Crash recovery has been modified so that any line in the *.log file that 
+    is not properly written (and causes an error) ends the redo process. A message 
+    is reported to the user, instead of stopping engine operation.</p>
+  <p>----------------</p>
+  <p>NIO ACCESS FOR *.data FILES</p>
+  <p>New nio access layer for .data files speeds up most CACHED TABLE related 
+    operations very significantly. 90% speedups in TestCacheSize tests have been 
+    observed.</p>
+  <p>There must be enough available memory in the machine to allow a memory-mapped 
+    buffer for the entire *.data file. Beyond this size, the engine reverts to 
+    non-nio access.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>BUILD</p>
+  <p>Reduction in JDK / JRE dependencies (see readmebuild.txt)</p>
+  <p>The supplied JAR is now compiled with JDK 1.4 and requires a JRE 1.4 or later 
+    to work. You can rebuild the JAR with JDK 1.3.x in order to use it with JRE 
+    1.3 or earlier.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>DOCUMENTATION</p>
+  <p><br>
+    Documentation is now maintained mainly in XML format with HTML and PDF versions 
+    available.</p>
+  <p></p>
+  <p>----------------------------------------------------</p>
+  <p>UTILITIES</p>
+  <p><br>
+    The SQL Tool is a powerful new utility in 1.7.2 and allows processing SQL 
+    commands via the shell or scripts.</p>
+  <p>The Transfer Tool utility saw a major upgrade just before the 1.7.2 release 
+    cycle. In this release some minor updates and bug fixes, together with significant 
+    speedup, have been intoduced.</p>
+  <p>The Database Manager has been enhanced slightly to include a command to save 
+    the result set in CSV format. The Swing version of Database Manager allows 
+    the user to sort the rows of the result set on any column.</p>
+  <p>The connection dialogue in the AWT version of Database Manager and Transfer 
+    Tool allows saving and recalling connection URL's together with the user name 
+    and password.</p>
+  <p><br>
+    ----------------------------------------------------</p>
+  <p>END<br>
+  </p>
+  <p>======================================================================================</p>
+  <p>HSQLDB version 1.7.1 CHANGELOG SINCE VERSION 1.7.0</p>
+  <p>Version 1.7.1 improves performance and fixes several bugs that have come 
+    to light since the release of 1.7.0. It does not feature any major new functionality 
+    in the database engine.</p>
+  <p>*Over ten-fold speedup of function calls in queries introduced in 1.7.1.</p>
+  <p>*Up to 30% reduction in memory used by indexes and table rows, resulting 
+    in smaller overall memory footprint in 1.7.1.</p>
+  <p>*Linux scripts for starting and shutting down server instances in 1.7.1.</p>
+  <p>* Build</p>
+  <p>Linux build scripts in 1.7.1</p>
+  <p>======================================================================================</p>
+  <p>HSQLDB version 1.7.0 CHANGELOG</p>
+  <p>* Enhancements to SQL</p>
+  <p>LIMIT and TOP keywords</p>
+  <p>The LIMIT keyword was introduced in 1.61 with limited functionality. In 1.7.0 
+    the functionality has been fully extended:</p>
+  <p>SELECT LIMIT &lt;n&gt; &lt;m&gt; DISTINCT is now allowed.</p>
+  <p>SELECT LIMIT &lt;n&gt; &lt;m&gt; ... is now treated as a complete SELECT 
+    statement and can be used anywhere a SELECT is used, so statements such as 
+    the following return meaningful results:</p>
+  <p>SELECT LIMIT &lt;n&gt; &lt;m&gt; ... WHERE &lt;x&gt; IN (SELECT LIMIT &lt;o&gt; 
+    &lt;p&gt; ... )</p>
+  <p>SELECT LIMIT &lt;n&gt; &lt;m&gt; ... UNION SELECT LIMIT &lt;o&gt; &lt;p&gt;</p>
+  <p>TOP &lt;m&gt; is synonymous with LIMIT 0 &lt;m&gt;</p>
+  <p>GROUP BY keyword</p>
+  <p>GROUP BY had several problems and bugs that have now been resolved. The results 
+    are now correct regardless of the order of selected columns or when sorting 
+    by multiple columns.</p>
+  <p>DEFAULT keyword</p>
+  <p>This keyword has been introduced with full functionality for defining default 
+    values for table columns. Special cases 'CURRENT_DATE','CURRENT_TIME','CURRENT_TIMSTAMP', 
+    'TODAY' and 'NOW' can set DATE, TIME and TIMESTAMP columns with current values 
+    when an INSERT statement is executed.</p>
+  <p>SIZE and PRECISION</p>
+  <p>Maximum column sizes for CHAR, VARCHAR, and other types are now stored in 
+    the database. The CHAR and VARCHAR sizes can be enforced when INSERT, UPDATE 
+    and SELECT ... INTO table operations are performed. The enforcement is optional 
+    and turned off by default.</p>
+  <p>SAVEPOINT for TRANSACTION</p>
+  <p>New feature to allow transactions to rollback to a specified point.</p>
+  <p>CONSTRAINTS and INDEXES</p>
+  <p>Primary keys declared as CONSTRAINT &lt;name&gt; PRIMARY KEY, either on a 
+    single column or on multiple columns, are now accepted and used. All constrains 
+    are named, with those generated by the system given unique names as SYS_CT_&lt;n&gt;.</p>
+  <p>Each INDEX must have a unique name within the database. This conforms to 
+    SQL standards.</p>
+  <p>FOREIGN KEYS, ON DELETE CASCADE</p>
+  <p>Foreign key constraints referencing the same table are now allowed. New, 
+    stricter rules require a unique index to exist on the referenced column (this 
+    is the recommended behaviour for new databases but is turned off by default 
+    for existing databases). </p>
+  <p>ON DELETE CASCADE qualifiers are now supported for foreign keys in data definition 
+    scripts. These qualifiers are enforced with fast searches on underlying indexes. 
+  </p>
+  <p>New support for ALTER TABLE allows 'forward-referencing' foreign keys where 
+    the referencing table is created before the referenced table.</p>
+  <p>TRIGGERS</p>
+  <p>New multiple-row trigger queues are introduced to improve performance. Enhancements 
+    to prevent deadlocks are also added.</p>
+  <p>TEMP tables</p>
+  <p>Full support for session-specific temporary tables is introduced. TEMP tables 
+    can be used in any statement the same way as ordinary tables, the differences 
+    are they are not visible to other session and are dropped when the session 
+    is closed. Also, FOREIGN KEY constraints for ordinary tables cannot reference 
+    a TEMP table for obvious reasons (TEMP tables can have foreign keys that reference 
+    any ordinary or temp table).</p>
+  <p>TEXT tables</p>
+  <p>Full support for delimited text files (such as CSV) as the data source for 
+    SQL tables.</p>
+  <p>VIEWS</p>
+  <p>Views are supported as global objects. Internally, each time the view is 
+    used, the underlying select statement is performed. Views can be created and 
+    dropped using the following statements.</p>
+  <p><br>
+    CREATE VIEW &lt;viewname&gt; AS SELECT ... FROM ... WHERE ....<br>
+    DROP VIEW &lt;viewname&gt; {IF EXISTS}</p>
+  <p>ALTER</p>
+  <p>The following statements are now supported:</p>
+  <p>ALTER TABLE &lt;name&gt; RENAME TO &lt;newname&gt;</p>
+  <p>All tables can now be renamed. </p>
+  <p>ALTER TABLE &lt;name&gt; ADD COLUMN &lt;column definition&gt; [BEFORE &lt;existing 
+    name&gt;]<br>
+    ALTER TABLE &lt;name&gt; DROP COLUMN &lt;colname&gt;</p>
+  <p>A column can be added to the column list, so long as its definition does 
+    not include PRIMARY KEY or IDENTITY keywords. If a DEFAULT clause is used 
+    in the definition, its value is used in all the existing rows. Any column 
+    can be dropped unless it is part of the column list for a constraint or index.</p>
+  <p>ALTER TABLE &lt;name&gt; DROP CONSTRAINT &lt;constname&gt;</p>
+  <p>Any constraint apart from primary key can be dropped. The index backing the 
+    constraint is dropped if not referenced by a foreign key.</p>
+  <p>ALTER TABLE &lt;name&gt; ADD CONSTRAINT &lt;constname&gt; UNIQUE &lt;column 
+    list&gt;</p>
+  <p>Unique constraints can be added. A new index is created if necessary.</p>
+  <p>ALTER TABLE &lt;name&gt; ADD CONSTRAINT &lt;constname&gt; FOREIGN KEY &lt;foreign 
+    key definition&gt;</p>
+  <p>Both backward and forward referencing foreign keys are supported.</p>
+  <p>ALTER INDEX &lt;name&gt; RENAME TO &lt;newname&gt;</p>
+  <p>Any index can be renamed, so long as it is not a primary key index or an 
+    automatically created index on the referencing columns of a foreign key.</p>
+  <p>DROP INDEX &lt;name&gt;</p>
+  <p>Any index can be dropped, so long as it is not a primary key index or an 
+    automatically created index on the referencing columns of a foreign key or 
+    an index backing a constraint.</p>
+  <p>SQL NAMES</p>
+  <p>Full support for quoted SQL object names which can include any Unicode character. 
+    This applies to TABLE, COLUMN, CONSTRAINT and INDEX names.</p>
+  <p>* Functions</p>
+  <p>SET FUNCTION such as COUNT AVG SUM now accept the DISTICT parameter. This 
+    feature is<br>
+    supported only when GROUP BY is not used in the query.</p>
+  <p>A number of bugs in functions such as ABS, CONCAT and SUBSTR have been fixed.</p>
+  <p>A small number of new functions have been added.</p>
+  <p>The SOUNDEX function has been rewritten according to standards.</p>
+  <p>* Expressions</p>
+  <p>Arithmetic expressions in SQL statements are now fully supported. Previously, 
+    when an arithmetic expression was used to INSERT or UPDATE a value, the first 
+    term had to be of the same type as the columns. For example 2*1.2 could not 
+    be inserted into a DECIMAL or DOUBLE column. Now all expressions are evaluated 
+    and the resulting value can be inserted into a column so long as it can be 
+    converted without narrowing.</p>
+  <p>More lenient treatment of values for TIMESTAMP columns in INSERT and UPDATE 
+    now allows a DATE or part TIMESTAMP string to be used instead of the full 
+    pattern.</p>
+  <p>BIT columns can be initialised with numeric values in addition to true and 
+    false. Numeric value 0 represents false; all other values represent true.</p>
+  <p>* Locales</p>
+  <p>CHAR, VARCHAR and LONGVARCHAR columns can now be sorted according to the 
+    current JVM locale. This feature is optional and turned off by default. If 
+    turned on, it can slow down database operations, especially where indexes 
+    on CHAR columns and its variant are used.</p>
+  <p>* Error Trapping</p>
+  <p>Some errors in SQL statements that were not reported before and resulted 
+    in potentially incorrect data are now caught.</p>
+  <p>Dropping tables that are referenced by foreign key constraints from other 
+    tables is now disallowed regardless of the system-wide REFERENTIAL_INTEGRITY 
+    setting.</p>
+  <p>Duplicate column names in one table are no longer allowed.</p>
+  <p>Duplicate index names are no longer allowed.</p>
+  <p>Using system table names for user tables is disallowed.</p>
+  <p>INSERT INTO table (a,b,c,...) VALUES (x,y,z,...) statements require the count 
+    of names and values to match.</p>
+  <p>* Enhancements to JDBC</p>
+  <p>JDBC ResultSet objects are now scrollable and fully support absolute and 
+    relative positioning.</p>
+  <p>Extra getXXX() methods are now supported, including getAsciiStream(), getUnicodeStream(), 
+    getCharacterStream().</p>
+  <p>Optional use of column labels (aliases) as the return value for getColumnName(int 
+    i) calls. This is turned off by default.</p>
+  <p>JDBC PreparedStatement support has been enhanced with support for setting 
+    and reading Date, Time and Timestamp values with a given Calendar object. 
+    This allows, among others, specifying different time zones for values that 
+    are set or read.</p>
+  <p>Extra setXXX() methods are now supported, including setAsciiStream(), setUnicodeStream(), 
+    setCharacterStream().</p>
+  <p>setObject() methods of PreparedStatement have been improved to allow storage 
+    of any serializable object in columns of SQL type, OTHER.</p>
+  <p>JDBC DatabaseMetaData getImportedKeys(), getExportedKeys(), getCrossReference(), 
+    getBestRowIdentifier() are now supported.</p>
+  <p>* Interoperability Enhancements</p>
+  <p>HsqlServerFactory allows interoperability with application servers.</p>
+  <p>An embedded server (an HSQLDB server started inside another application) 
+    can be directed to avoid calling System.exit() when the SHUTDOWN command is 
+    issued to the database for admin purposes.</p>
+  <p>javax.jdbc.DataSource interface has been introduced as an experimental feature. 
+    In order to include this support, the source code should be compiled with 
+    JDK 1.4 or with appropriate J2EE jars present in the class path.</p>
+  <p>* Performance Enhancements</p>
+  <p>Very large CHAR, VARCHAR, LONGVARCHAR values are now supported in all types 
+    of tables.</p>
+  <p>Major overhaul of internal operations to drastically reduce creation of temporary 
+    objects and type conversion.</p>
+  <p>Code enhancements to reduce unnecessary method calls in loops.</p>
+  <p>Enhancements to avoid duplicate indexes (in source code but not activated).</p>
+  <p>* Reliability Enhancements</p>
+  <p>Many bugs that existed in 1.43 have been fixed.</p>
+  <p>Better catching of error conditions and special cases such as null values.</p>
+  <p>Correct treatment of large binary data.</p>
+  <p>Better enforcement of internal data consistency in a number of areas.</p>
+  <p>* Utilities</p>
+  <p>New Script Tool class allows executing an SQL script.</p>
+  <p>Enhancements to Transfer Tool to allow the user to save the transfer settings 
+    and load them in future sessions. Additional enhancements to support different 
+    database source and targets in a modular way.</p>
+  <p>Swing versions of Transfer Tool and Database Manager.</p>
+  <p>* Build</p>
+  <p>Better Ant build with automatic detection of JDK version</p>
+  <p>List of patches and fixes numbered by SourceForge Tracker ID's.</p>
+  <p>416437 by deforest@users - JDBC DataSource<br>
+    418017 by deforest@users - made optional<br>
+    437174 by hjb@users - cache enhancements<br>
+    442993 by fredt - mixed type arithmetic expressions<br>
+    448121 by sma@users - large binary values - part implemented<br>
+    489917 by jytou@users - optional getColumnName(int) return value<br>
+    450412 by elise@users - jdk 1.1 compatibility<br>
+    450455 by kibu@users - platform specific line endings in .scrip file<br>
+    455757 by galena@users (Michiel de Roo)<br>
+    455785 by hjbusch@users - large DECIMAL inserts<br>
+    456679 by hiep256@users - TOP keyword<br>
+    460907 by fredt - soundex<br>
+    461556 by paul-h@users - compatibility with application servers<br>
+    471710 by fredt - LIMIT rewritten<br>
+    473613 by thertz@users - error trapping for joins<br>
+    475199 by fredt - duplicate column<br>
+    475586 by wreissen@users - servlet database name<br>
+    476650 by johnhobs@users - GROUP BY aggregates<br>
+    476694 by velichko@users - transaction savepoints<br>
+    478657 by peterhudson@users - improved TRIGGER support<br>
+    481239 by xponsard@users - enhancement to Transfer Tool<br>
+    481239 by yfl@users - SQL script execution<br>
+    485704 by boucherb@users - null binary objects<br>
+    488200 by xclay@users - throw exception<br>
+    489184 by xclay@users - thread safety<br>
+    489777 by fredt - protection of system tables<br>
+    491987 by jimbag@users - column size enforcement and preservation<br>
+    495484 by boucherb@users - exception at shutdown<br>
+    495938 by johnhobs@users - GROUP BY sorting<br>
+    497714 by lakuhns@users - scrollable JDBC result sets<br>
+    497872 by Nitin Chauhan - performance enhancements<br>
+    497872 by Nitin Chauhan - default labels for aggregates<br>
+    500767 by adjbirch@users - TransferTool enhancements<br>
+    505356 by daniel_fiser@users - sorting according to Locale<br>
+    509002 by fredt - correct parsing of primary key constraints<br>
+    513005 by sqlbob@users - ABS function<br>
+    513005 by sqlbob@users - HOUR function<br>
+    513005 by sqlbob@users - TEMP tables<br>
+    513005 by sqlbob@users - TEXT TABLE support<br>
+    514111 by fredt - CONCAT function<br>
+    517028 by peterhudson@users - JDBC setDate(), etc. with Calendar<br>
+    521078 by boucherb@users - DROP TABLE checks<br>
+    523880 by leptitpre@users - VIEW SUPPORT<br>
+    544754 by sqlbob@users - RAWTOHEX and HEXTORAW functions<br>
+    549741 by velichko@users - RENAME for tables and indexes<br>
+    550970 by boucherb@users - fewer StringBuffers<br>
+    552830 by rougier@users - COUNT(DISTICT column)<br>
+    580430 by thomasm@users - wrong column name in getIndexInfo()</p>
+  <p>List of enhancements without patch number</p>
+  <p>1.7.0 by boucherb@users - maintaining constraint names<br>
+    1.7.0 by boucherb@users - self referenced foreign keys<br>
+    1.7.0 by boucherb@users - stubs for JDBC3 methods and updated Javadoc<br>
+    1.7.0 by boucherb@users - Javadoc for a number of classes<br>
+    1.7.0 by deforest@users - create database directory if not exists<br>
+    1.7.0 by fredt - full support for quoted identifiers<br>
+    1.7.0 by fredt - ON DELETE CASCADE qualifier for foreign keys<br>
+    1.7.0 by fredt - foreign keys without target column list<br>
+    1.7.0 by fredt - DEFAULT keyword in column definitions<br>
+    1.7.0 by fredt - GROUP BY with multiple columns in groups<br>
+    1.7.0 by fredt - JDBC getDate, etc. with Calendar<br>
+    1.7.0 by fredt - lenient handling of Timestamp inserts<br>
+    1.7.0 by fredt - JDK 1.1 compatible deque object backed by an array<br>
+    1.7.0 by fredt - new HsqlProperties class<br>
+    1.7.0 by fredt - preservation of column size, etc. with SELECT INTO<br>
+    1.7.0 by fredt - ensuring internal consistency of Result objects<br>
+    1.7.0 by fredt - resolving some deprecation warnings<br>
+    1.7.0 by fredt - ALTER TABLE for adding and dropping columns and constraints<br>
+    1.7.0 by fredt - revamped storage of cached table with very large strings<br>
+    1.7.0 by fredt - management of server connections with optional no system 
+    exit<br>
+    1.7.0 by fredt - revamped management of server and database properties<br>
+    1.7.0 by fredt - JDBC getUnicodeStream(), getAsciiStream(), getCharacterStream()<br>
+    1.7.0 by fredt - JDBC setAsciiStream(), setUnicodeStream(), setCharacterStream()<br>
+    1.7.0 by fredt - JDBC getCrossReference(), getImportedKeys(), getExportedKeys()<br>
+    1.7.0 by nbazin@users - enhancements to Transfer Tool<br>
+    1.7.0 by sqlbob@users - reengineering of Database Manager and Transfer Tool<br>
+    1.7.0 by sqlbob@users - TEMP, TEXT and CACHED table targets for SELECT INTO<br>
+    1.7.0 by sqlbob@users - improvements to cache size management<br>
+    1.7.0 by David Moles - tests for subselect<br>
+    1.7.0 by jrmaher@users - improvements to Script Tool</p>
+  <p>also a large number of error-trapping and other fixes not documented</p>
+  <p></p>
+  <p>======================================================================================</p>
+  <p>HSQLDB v. 1.61</p>
+  <p>Changes 20 July 2001</p>
+  <p>The following enhancements and bug fixes have been introduced:<br>
+    Patch or Bug tracking numbers are included where one exists.</p>
+  <p>Compatibility with version 1.43 databases.<br>
+    Database files created with 1.43 can be opened with version 1.61. The<br>
+    database is converted into the 1.6x format. As a precaution against future<br>
+    problems, databases created with later versions cannot be opened by this <br>
+    version(1.60 and 1.61, 1.6x are considered the same version but 1.6x and <br>
+    1.7x are different versions).</p>
+  <p>The LIMIT keyword for fetching only part of the result set.</p>
+  <p>SELECT LIMIT n m { selectExpression | table.* | * } [, ... ] .........</p>
+  <p>The LIMIT keyword can be used immediately after the SELECT keyword and has<br>
+    two numbers as parameters. The query is executed as if LIMIT and its <br>
+    parameters were not present, then the rows after the offset position (n)<br>
+    and specified by count (m) are returned. Offset n is counted from one.<br>
+    &quot;SELECT LIMIT 10 20 * FROM mytable&quot; returns rows 11-30 only<br>
+    Currently LIMIT cannot be used together with DISTINCT</p>
+  <p><br>
+    418019 Timestamp format</p>
+  <p>418022 Char comparison</p>
+  <p>418023 SUBSTR </p>
+  <p>416144 416146 430615 GROUP BY used with aggregate functions:<br>
+    a new patch, without side-effects, has been used</p>
+  <p>425495 setObject</p>
+  <p>Fred Toussi<br>
+    fredt@users</p>
+  <p>========================================================================================</p>
+  <p>Changes 06 July 2001</p>
+  <p><br>
+    I have checked the bug reports and patches and indicated my opinion as to<br>
+    which patches / bug fixes should be done for the 1.61 point release,<br>
+    stating NO or OK. I have incorporated some of these and fixed one myself.<br>
+    In addition, the patch for database migration from 1.43 to 1.6x that I <br>
+    submitted on 16 April should be incorporated into the point release.</p>
+  <p>There were 10 patches up to 16 April, which according to Mark, have been 
+    <br>
+    incorporated. Except:</p>
+  <p>OK-------416149 Swing interface for DatabaseManager - ok - but file is missing</p>
+  <p>Patches since 16 April:</p>
+  <p><br>
+    OK-------418014 Trace specific exceptions - ok<br>
+    INCORPORATED fredt</p>
+  <p>NO-------418017 Month format<br>
+    fredt: - patch is ok - do we want this as it can break existing code</p>
+  <p>OK-------418019 Timestamp format - ok - won't break existing code<br>
+    INCORPORATED fredt</p>
+  <p><br>
+    OK-------418022 Char comparison<br>
+    fredt: - patch is ok - do we want this as it can break existing code<br>
+    fredt: - now I think we should add it anyway. Side effects would be minimal.<br>
+    INCORPORATED fredt</p>
+  <p><br>
+    OK-------418023 SUBSTR - ok<br>
+    INCORPORATED fredt</p>
+  <p><br>
+    Bugs</p>
+  <p><br>
+    OK-------416138 Resolved: The user should use switchtojdk11 before the build</p>
+  <p>NO-------416139 Multiple result sets<br>
+    fredt: High Hopes?</p>
+  <p><br>
+    -------416140 PATCH for getMoreResults() - ok</p>
+  <p>ALREADY IN VERSION 1.60 fredt</p>
+  <p><br>
+    OK-------416141 DatabaseMetaData.getExportedKeys() does not work :<br>
+    fredt: I know this one from Hypersonic. May be able to fix it.</p>
+  <p>fredt: In DatabaseInformation.java, getSystemTable(,,) creates a table on 
+    the<br>
+    fly for metadata information and then fills it with information from tTable.<br>
+    Code has been written to fill the SYSTEM_TABLES, SYSTEM_TYPES, etc.<br>
+    but not FOREIGN_KEY etc. as these would be more complicated.<br>
+    I hope to get a bit of extra time in the near future to implement<br>
+    this and related calls, getExportedKeys(), getCrossReference(), etc.</p>
+  <p><br>
+    -------416142 SAME AS ABOVE</p>
+  <p><br>
+    OK-------416143 PATCH LONGVARBINARY - ok</p>
+  <p>ALREADY IN VERSION 1.60</p>
+  <p>OK-------416144 PATCH for GROUP BY - has side effect<br>
+    -------416146 SAME AS ABOVE</p>
+  <p>INCORPORATED fredt: fixed with different code without side effect</p>
+  <p>OK-------416325 complaint by user -<br>
+    fredt: If they submit their changes we will incorporate into the CVS.</p>
+  <p><br>
+    OK-------416357 DB transition - documentation issue - If anyone has a<br>
+    half-finished doc we can put it up and ask users / developers to<br>
+    contribute and finish it. Mike seems to have done something about this.</p>
+  <p><br>
+    OK-------423114 Timestamp - Mike and Mark were looking into this.<br>
+    fredt: If no results I can have a go.</p>
+  <p>OK-------423964 Single Quote in string fields - says it has been fixed in 
+    HQSLDB<br>
+    fredt: has it been fixed?</p>
+  <p>??-------424027 DELETE FROM ... problem with cached tables<br>
+    NO-------424759 CREATE TABLE ... request for extended SQL support (worked 
+    with 1.43)<br>
+    fredt: it works if NOT NULL is placed before PRIMARY KEY</p>
+  <p>NO-------424763 canonizing column names request for case-insensitive names 
+    (worked with 1.43)<br>
+    NO-------424767 Request for support for 0 and 1 as bit values</p>
+  <p>OK-------424784 now() parsed as timestamp</p>
+  <p><br>
+    OK-------425495 PATCH setObject - ok<br>
+    INCORPORATED fredt</p>
+  <p><br>
+    -------430615 SAME AS 416144<br>
+    OK-------432855 shutdown compact</p>
+  <p>Fred Toussi<br>
+    fredt@users</p>
+  <p></p>
+  <p>======================================================================================</p>
+  <p>Changes to HSQLDB v. 1.60 directory structure and introduction of an<br>
+    Ant build.xml</p>
+  <p><br>
+    The original directory structure of HypersonicSQL had evolved around a set 
+    of<br>
+    demos and the hsql.jar file was located in the /demo directory.</p>
+  <p>There was no /lib directory and the javax.servlet classes were in the same<br>
+    folder as the source code. This arrangement was somewhat useful with jdk1.1.x<br>
+    as it did not require a classpath argument for some of the compile and run 
+    tasks.<br>
+    But it has no major advantage with jdk1.3.</p>
+  <p>In HSQLDB, all classes are in the org.hsqldb. tree, compared to HypersonicSQL's<br>
+    org.hsql. This change already dictates that any existing .html, .bat, .sh 
+    and<br>
+    other command files that are in use for running the database, or its utility<br>
+    classes, have to be edited to reflect the new tree name.</p>
+  <p>HypersonicSQL only included .bat files for development and running tasks. 
+    The<br>
+    development of Apache Ant has made it possible to perform compile and build 
+    tasks<br>
+    in a platform-independent manner. So a build.xml script for Ant is highly<br>
+    desirable.<br>
+    <br>
+    These circumstances justify the introduction a new directory structure which<br>
+    follows the standards used by Sun and others to distribute Java programs. 
+  </p>
+  <p><br>
+    Changes:</p>
+  <p>Summary of Changes:</p>
+  <p>/bin /lib and /classes directories have been added to the root directory 
+    of the<br>
+    installation. Some existing files have been moved to these directories. All<br>
+    command files have been updated to work within the new structure.</p>
+  <p>Details of Changes:</p>
+  <p>/bin is almost empty now but will hold .bat and .sh files used for creating<br>
+    databases and running different configuration of the server. Unlike the<br>
+    versions in /demo, these will not create a test database and will expect the<br>
+    user to specify a database. <br>
+    (.sh files will be added after some work to make them independent of java<br>
+    runtime location)</p>
+  <p>/lib contains the javax.servlet precompiled classes (moved from /src) and 
+    is<br>
+    the location of the hsqldb.jar file when it is created.</p>
+  <p>/classes contains the org.hsqldb classes while the .jar is being built and<br>
+    CodeSwitcher.java is used to convert source code. It is normally deleted after<br>
+    the operation.</p>
+  <p>In /src there is an Ant build.xml that builds the hsqldb.jar. (Ant must be 
+    <br>
+    already installed). To use it, change to /src then type:</p>
+  <p>ant</p>
+  <p>This displays the command line options which include</p>
+  <p>ant jar to make the hsqldb.jar<br>
+    ant clean to clean up the /classes directory that is created<br>
+    ant cleanall to remove the old jar as well<br>
+    ant switchtojdk11 to process and change the code for jdk1.1.x<br>
+    ant switchtojdk12 to process and change the code for jdk1.2.x and 1.3.x</p>
+  <p>In /demo all the html and bat files have been changed to reflect the<br>
+    new relative location of the hsqldb.jar file. The .bat files all work.</p>
+  <p>In .html files, the codebase argument was added to the Applet tag. The<br>
+    in-memory and client-server .html demos all work</p>
+  <p>/src/build.bat works with jdk1.1x and above. It puts the hsqldb.jar file 
+    in<br>
+    /lib and takes account of the new location of javax classes.</p>
+  <p>All the other .bat files work, except:</p>
+  <p>switchtoprofile.bat<br>
+    switchtoruntime.bat</p>
+  <p>There is a problem with the same .bat files in HypersonicSQL 1.43. The new 
+    format <br>
+    of the 1.60 code and the addition of comments in 1.60 just result in extra<br>
+    errors. </p>
+  <p>THESE .bat FILES CORRUPT THE SOURCES, so that if they are performed one followed<br>
+    by the other, the sources no longer compile correctly (tested with jdk1.3).</p>
+  <p>***I suggest not to include them in the distribution until there is a<br>
+    resolution.</p>
+  <p>I think the new directory structure can be introduced as the remaining minor<br>
+    problems are definitely not related to the change of directory structure.</p>
+  <p>Tests have been performed on Win NT 4 SP6A with jdk1.3.0_02 and jdk1.1.8. 
+    In<br>
+    both test environments, a minimal classpath was used. Internet Explorer 5.5 
+    was<br>
+    used for testing .html Applets</p>
+  <p>Fred Toussi<br>
+    fredt@users<br>
+  </p>
+  <p>======================================================================================<br>
+    Code Changes in 1.60</p>
+  <p>Several minor fixes, code formatted to Sun standards, Javadoc comments started.</p>
+  <p>Issues Addressed:</p>
+  <p>Problem: LONGVARBINARY error using setObject.<br>
+    When using setObject to set the value of a binary column a class cast<br>
+    error occured. Added methods to resolve this, bug and fix submitted by ?.</p>
+  <p>Problem: BINARY data types were limited to 32K.<br>
+    Added support for larger objects. Bug and fix submitted by Jonathan Tappan.<br>
+    <br>
+    Problem: Cached table corruption<br>
+    Modified Cache class to update free space list correctly. Bug and fix <br>
+    submitted by Jonathan Tappan.<br>
+    <br>
+    Problem: readonly property causes stack dump in Log class<br>
+    Bug and fix submitted by Donatella Mori and Richard Hoad.<br>
+    <br>
+    Problem: getMoreResults fails to follow JDBC spec.<br>
+    Bug and fix submitted by Brent Boyer.<br>
+    <br>
+    Problem: Subselect bugs<br>
+    Bug and fix submitted by Mark Muday.<br>
+    <br>
+    Problem: hsql connection type converted to http by jdbcConnection class.<br>
+    Bug and fix submitted by Elize Jensen.<br>
+    <br>
+    Problem: INTERNAL connection type being closed incorrectly, causing, among 
+    other <br>
+    things, CALL IDENTITY() to fail. Bug and fix provided by Mauro Canal.</p>
+  <p>New Features: <br>
+    <br>
+    Extended SQL syntax for DROP TABLE to allow 'DROP TABLE IF EXISTS &lt;table&gt;'. 
+  </p>
+  <p>Logicscope Realisations Ltd. graciously sponsored Peter Hudson who developed<br>
+    the trigger implementation for HSQLDB.</p>
+  <p>Postponed Features:</p>
+  <p>Reworked transactions mechanism. The problem with the old mechanism <br>
+    (as I understand it) was that during a transaction, the uncommitted records 
+    were <br>
+    available to other channels, i.e. they can read uncommitted changes that may 
+    be<br>
+    rolled back in the case of an aborted transaction. The modification <br>
+    allows 2 phase transactions, where the updates are not visible outside of 
+    the <br>
+    Channel until the transaction is committed. Patch submitted by Valerio Aimale. 
+    <br>
+    The concept is sound, but the changes caused problems, perhaps due to other 
+    changes<br>
+    in this release.</p>
+  <p>Mark Tutt<br>
+    mtutt@users</p>
+  <p></p>
+  <p>======================================================================================<br>
+    Code Changes in 1.44</p>
+  <p>1.44 is a retrospective package that can be used for comparison with <br>
+    later versions of HSQLDB.<br>
+    It consists of the code base for Hypersonic 1.43 with<br>
+    the following modifications only:</p>
+  <p>Code formatted to Sun standards.<br>
+    Package names changed from hsql to hsqldb</p>
+  <p>======================================================================================</p>
+  <p></p>
+  <p><a href="hsqlHistory.html">Previous work</a> (hsql/Hypersonic SQL) </p>
+  <!-- #EndEditable -->
+ </div>
+<p> 
+ 
+<a href="http://sourceforge.net"> <img src="http://sourceforge.net/sflogo.php?group_id=23316" width="95" height="32" border="0" alt="SourceForge Logo"></a> 
+<!-- #BeginEditable "extralogo" --><!-- #EndEditable --> 
+<h6 align="center"> This page last updated <!-- #BeginEditable "update" -->8 August 
+  2004<!-- #EndEditable --></h6>
+<h6> Java is a Trademark of Sun Microsystems, Inc. (under various licenses). <i>Contents 
+  of this page are &copy;2001-2004 <a href="http://hsqldb.sourceforge.net" target="_top">The 
+  hsqldb Development Group.</a> All rights reserved under the terms of the applicable 
+  <a href="hsqlLicense.html" target="_top">Licenses</a>. Questions and 
+  comments about this page may be addressed to the <a href="mailto:dedmike@users.sourceforge.net">Webmaster</a>.</i></h6>
+</body>
+<!-- #EndTemplate -->

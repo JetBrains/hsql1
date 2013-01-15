@@ -1,0 +1,216 @@
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html><!-- #BeginTemplate "/Templates/defaulttemplate.dwt" --><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<!-- #BeginEditable "doctitle" -->
+<title>hsqldb at SourceForge.net</title>
+<!-- #EndEditable -->
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="hsqldb: Full-featured 100% Java ORDBMS" name=description>
+<meta 
+content="Java,, WWW, Java database, JDBC, RDBMS, SQL, Database, ORDBMS, hsqldb, HypersonicSQL" 
+name=keywords>
+<meta content=INDEX,NOFOLLOW name=robots>
+
+<link title=hsqldb 
+href="http://hsqldb.sourceforge.net" rel=contents>
+<link 
+title="Copyright by hsqldb Development Group" 
+rel=copyright href="http://hsqldb.sourceforge.net">
+</head>
+<body text=#000000 vlink=#0000FF alink=#00FF00 link=#0000FF bgcolor=#FFFFFF>
+<table width="100%" summary=Navigation class="topbox">
+  <tr> 
+      
+    <td> 
+      <h3><a href="http://hsqldb.sourceforge.net"><img src="../images/line-1.gif" width="154" height="59" alt="hsqldb.org Home Page" border="0" align="top"></a> 
+        <a href="../index.html" target="_top"><font color="#0000FF">hsqldb</font></a> 
+        - 100% Java Database </h3>
+      <p>Lightweight 100% Java SQL Database Engine<br>
+            <font size="-7">A Project of <a href="http://hsqldb.sourceforge.net" target="_top">the 
+        hsqldb Development Team</a></font></p>
+         </td>
+      <td valign=top width="45%"> 
+         <dl> 
+            <dt><font size="-1">General </font> 
+            
+        <dd><font size="-1">&lt;<a href="http://sourceforge.net/project/showfiles.php?group_id=23316&release_id=254279" target="_top">Download</a>&gt; 
+          &lt;<a href="http://sourceforge.net/news/?group_id=23316" target="_top">News</a>&gt;&lt;<a href="http://sourceforge.net/projects/hsqldb" target="_top">Project 
+          Page</a>&gt; &lt;<a 
+        href="hsqlLicense.html" target="_top">License</a>&gt; </font> 
+        <dt><font size="-1">Contact and Support </font> 
+            <dd><font size="-1"> &lt;<a href="hsqlSupport.html" target="_top">Support</a>&gt;  &lt;<a href="hsqlFAQ.html" target="_top">FAQ</a>&gt; 
+          </font> 
+            <dt><font size="-1">Documentation and Development </font> 
+            <dd><font size="-1">&lt;<a href="hsqlFeatures.html" target="_top">Features</a>&gt; 
+          &lt;<a href="hsqlDocsFrame.html" target="_top">Documentation</a>&gt; &lt;<a href="hsqlDevelopment.html" target="_top">Developers</a>&gt; &lt;<a href="changelog.html" target="_top">Changes</a>&gt; </font></dd>
+         </dl>
+      </td>
+   </tr>
+</table>
+ 
+ <div class="textbox">
+<!-- #BeginEditable "body" --> 
+  <center>
+  </center>
+  <h2>General Features: </h2>
+  <ul>
+    <li> 100% Java 
+    <li> A full RDBMS (Relational Database Management System), with the Object 
+      capabilities of Java 
+    <li>Switchable source code to support JDK 1.1.x, JDK 1.2.x, JDK (SE) 1.3.x, 
+      JDK (SE) 1.4.x. 
+    <li><a href="../doc/guide/ch08.html">Standard SQL (Structured Query Language) 
+      syntax</a> 
+    <li>Correlated subqueries, inner and outer joins are possible 
+    <li>Views, Temp tables and sequences 
+    <li>Text Tables (with external file data sources such as csv files) 
+    <li>Primary key, unique and check constraints on single or multiple&nbsp;columns&nbsp; 
+    <li>ORDER BY, GROUP BY and HAVING are supported 
+    <li>COUNT, SUM, MIN, MAX, AVG, alone and in expressions 
+    <li>Full support for SQL language expressions such as CASE .. WHEN .. ELSE 
+      .. , NULLIF etc. 
+    <li>Transaction support 
+    <li>Supports Referential Integrity (foreign keys) with full cascading options 
+      (delete, update, set null, set default) 
+    <li><a href="hsqlFeatures.html#STORED">Java Stored Procedures and Functions</a> 
+      can be called 
+    <li>Triggers 
+    <li><a href="hsqlFeatures.html#SECURITY">Database Security functions</a> 
+    <li>95% JDBC interface support with full metadata and batch statement functionality 
+    <li>All JDBC 1 data types supported, also 'Object' , Blob and Clob 
+    <li>In-memory, Standalone and Client-Server operating modes 
+    <li>A small WebServer and a Servlet is included 
+    <li>It can be used in Applets and Applications 
+    <li><a href="hsqlFeatures.html#AUTOINCREMENT">Autoincrement column support</a> 
+    <li>Cached or Text tables up to 2 gigabytes 
+    <li>Size of strings and binary data only limited by memory 
+    <li>Indexes can be created for one or many fields 
+    <li>JDBC <a href="hsqlFeatures.html#METADATA">Metadata support</a> 
+    <li><a href="hsqlFeatures.html#READONLY">Readonly connection and database 
+      support</a> 
+    <li>An SQL script describing the database can be created </li>
+  </ul>
+  <p> <a name="SECURITY"></a> <strong>Database security</strong> 
+  <p> There is a built-in security system using users, passwords and access rights. 
+    There exists by default a 'System Administrator' with the user name 'sa' and 
+    the password '' (empty password). This special user can create new users, 
+    drop users and grant and revoke access rights for tables or stored procedures 
+    to other users. The general users can only change their own password and connect 
+    as another user. All this user administration can be done by SQL scripts (GRANT, 
+    REVOKE). Access can be granted also to PUBLIC. 
+  <p> <a name="AUTOINCREMENT"></a> <strong>Identity (autoincrement) column type</strong> 
+  <p> Identity columns can be used to serve as automatic unique row identifier 
+    for a table. When a new row is added to the table and the identity column 
+    is not inserted (or a NULL value is inserted), then HSQLDB provides a unique, 
+    incremental value for the column. The identity column is automatically the 
+    primary key of the table. Only one identity column can be created per table. 
+    In HSQLDB, any value can be used for updating or inserting in an identity 
+    column provided it does not violate the primary key constraint. 
+  <p><a name="METADATA"></a> <strong>Metadata support</strong> 
+  <p> HSQLDB supports extensive system tables that are build dynamically when 
+    a query is made to them. These tables provide database metadata. The names 
+    of the tables are 'SYSTEM_' followed by the corresponding JDBC DatabaseMetaData 
+    method. For example the methode 'getColumns(...)' queries the table 'SYSTEM_COLUMNS'.&nbsp; 
+    There are several other system tables reporting on database tables, indexes, 
+    primary keys, foreign keys etc. 
+  <p> <a name="READONLY"></a> <strong>Readonly connection and database support</strong> 
+  <p> Connections can be set to readonly using the command SET READONLY [TRUE|FALSE] 
+    or using the method Connection.setReadOnly(boolean readonly). Additionally 
+    the whole database can be put in read-only mode by manually adding the line 
+    'readonly=true' to the .properties file. All connections are then automatically 
+    readonly. The database files will then be opened in readonly mode, and it 
+    is thus possible to create a CD with this database. Other variations, allow 
+    modifiable readonly database (changes are discarded at shutdown) or inclusion 
+    of a database in the application JAR. 
+  <p> <a name="BIGRESULTS"></a> <strong>Selecting big results / Scanning big tables</strong> 
+  <p> One limitation of HSQLDB is that it currently does not support server side 
+    cursors. This means the result of a query must always fit in memory, otherwise 
+    an OutOfMemory error occurs. In the rare situation that a huge resultsets 
+    must be processed, then the following workaround can be used: 
+  <p> Limit the ResultSet using Statement.setMaxRows(1024), and select multiple 
+    'smaller' blocks. If the table is for example 'CREATE TABLE Test(Id INT IDENTITY 
+    PRIMARY KEY, Name VARCHAR)' then the first block can be selected using 'SELECT 
+    * FROM Test ORDER BY Id' and the next block using 'SELECT * FROM Test WHERE 
+    Id&gt;(biggest_id) ORDER BY Id' until no more records are returned. Don't 
+    forget to switch of the limit using setMaxRows(0). 
+  <p> <a name="COMPACT"></a> <strong>Compacting the database</strong> 
+  <p> The database file should grow automatically, empty space (after deleting 
+    records) should be reused automatically, and the file should shrink finally 
+    if data is deleted. 
+  <p>In HSQLDB, not all of these features&nbsp;are currently implemented for the 
+    <strong>.data</strong> file. In most cases empty space (caused by deleted 
+    records) is reused, because a list of 1024 free blocks is kept. But this list 
+    is lost when the database is closed. In one case (DROP TABLE) the space is 
+    not reclaimed. 
+  <p> To shrink all files to the minimum size, use the SQL command 'CHECKPOINT 
+    DEFRAG' and continue using the database or use 'SHUTDOWN COMPACT' when closing 
+    the database. It is a good idea to run this command also before creating a 
+    read-only database. 
+  <p> <a name="STORED"></a> <strong>Java Stored Procedures / Functions</strong> 
+  <p> Stored procedures are Java functions that are called directly from the SQL 
+    language or using an alias. Calling Java functions (directly or using the 
+    alias) requires that the Java class can be reached by the database (server). 
+    User defined stored procedures / functions must be places where the database 
+    server runs. For HSQLDB, stored procedures and functions are equal. The syntax 
+    for calling functions and stored procedures (inside a SELECT statement for 
+    example) is: 
+  <p> SELECT Value, "java.lang.Math.sqrt"(Value) AS SQRT FROM Test 
+  <p> It can be called also without the SELECT, using the command CALL. This makes 
+    more sense for 'Stored Procedures' but works for functions, too: 
+  <p> CALL "java.lang.Math.sqrt"(2.0) 
+  <p> The package must be provided, and the name must be written as one word, 
+    and inside " because otherwise it is converted to uppercase (and not found). 
+  <p> An alias can be created using the command CREATE ALIAS: 
+  <p> CREATE ALIAS SQRT FOR "java.lang.Math.sqrt" 
+  <p> When an alias is defined, then the function can be called additionally using 
+    this alias: 
+  <p> CALL SQRT(2.0) <br>
+    SELECT Value, SQRT(Value) AS SQRT FROM Test 
+  <p> This are the rules when creating user defined functions / stored procedures: 
+  <ul>
+    <li>The function must be 'public static' 
+    <li>Parameters that are not provided by the user are filled with 'null' by 
+      the system. For example SIN() is equal to SIN(NULL). SIN is the alias for 
+      java.lang.Math.sin. 
+    <li>When a parameter is 'null' and the parameter type in the function is a 
+      basic data type (for example 'int', 'double') then the function is not called 
+      at all and 'null' is returned by the system. In the example above java.lang.Math.sin(double 
+      d) is not called because the parameter d is 'null'. 
+    <li>When a parameter can be null, don't use the basic data types (for example 
+      int) use the class instead (for example java.lang.Integer). 
+    <li>An example for functions with optional parameters is org.hsqldb.substring(String 
+      s,int start,Integer length): the parameters 'length' is optional. If not 
+      provided by the user, it is filled with 'null' by the system, and the function 
+      is called. 
+    <li>If you need a Connection in your function, just provide a parameter, 'Connection'. 
+      This parameter will be filled by HSQLDB. Example is the function org.hsqldb.Library.user(Connection 
+      conn). The function is called by the user with: CALL USER() 
+    <li>Stored procedures (or 'constants' like PI) with no parameters are called 
+      with brackets: PI(). PI alone can be a (table- or column-) name. </li>
+  </ul>
+  <p>There is also a security mechanism provided: Access to each class can be 
+    granted / revoked to a user: </p>
+  <p> GRANT ALL ON "java.lang.Math" TO PUBLIC </p>
+  <p> By default, all users have access to java.lang.Math and org.hsqldb.Library. 
+    <center>
+    </center>
+  <p align="center"><br>
+    <br>
+    <font size="-1">This text is based on HypersonicSQL documentation, updated 
+    to reflect the latest version of HSQLDB</font><br>
+  <!-- #EndEditable -->
+ </div>
+<p> 
+ 
+<a href="http://sourceforge.net"> <img src="http://sourceforge.net/sflogo.php?group_id=23316" width="95" height="32" border="0" alt="SourceForge Logo"></a> 
+<!-- #BeginEditable "extralogo" --><!-- #EndEditable --> 
+<h6 align="center"> This page last updated <!-- #BeginEditable "update" -->8 August 
+  2004<!-- #EndEditable --></h6>
+<h6> Java is a Trademark of Sun Microsystems, Inc. (under various licenses). <i>Contents 
+  of this page are &copy;2001-2004 <a href="http://hsqldb.sourceforge.net" target="_top">The 
+  hsqldb Development Group.</a> All rights reserved under the terms of the applicable 
+  <a href="hsqlLicense.html" target="_top">Licenses</a>. Questions and 
+  comments about this page may be addressed to the <a href="mailto:dedmike@users.sourceforge.net">Webmaster</a>.</i></h6>
+</body>
+<!-- #EndTemplate -->

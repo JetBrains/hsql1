@@ -1,0 +1,281 @@
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html><!-- #BeginTemplate "/Templates/defaulttemplate.dwt" --><head>
+<link rel="stylesheet" href="style.css" type="text/css">
+<!-- #BeginEditable "doctitle" -->
+<title>hsqldb at SourceForge.net</title>
+<!-- #EndEditable -->
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta content="hsqldb: Full-featured 100% Java ORDBMS" name=description>
+<meta 
+content="Java,, WWW, Java database, JDBC, RDBMS, SQL, Database, ORDBMS, hsqldb, HypersonicSQL" 
+name=keywords>
+<meta content=INDEX,NOFOLLOW name=robots>
+
+<link title=hsqldb 
+href="http://hsqldb.sourceforge.net" rel=contents>
+<link 
+title="Copyright by hsqldb Development Group" 
+rel=copyright href="http://hsqldb.sourceforge.net">
+</head>
+<body text=#000000 vlink=#0000FF alink=#00FF00 link=#0000FF bgcolor=#FFFFFF>
+<table width="100%" summary=Navigation class="topbox">
+  <tr> 
+      
+    <td> 
+      <h3><a href="http://hsqldb.sourceforge.net"><img src="../images/line-1.gif" width="154" height="59" alt="hsqldb.org Home Page" border="0" align="top"></a> 
+        <a href="../index.html" target="_top"><font color="#0000FF">hsqldb</font></a> 
+        - 100% Java Database </h3>
+      <p>Lightweight 100% Java SQL Database Engine<br>
+            <font size="-7">A Project of <a href="http://hsqldb.sourceforge.net" target="_top">the 
+        hsqldb Development Team</a></font></p>
+         </td>
+      <td valign=top width="45%"> 
+         <dl> 
+            <dt><font size="-1">General </font> 
+            
+        <dd><font size="-1">&lt;<a href="http://sourceforge.net/project/showfiles.php?group_id=23316&release_id=254279" target="_top">Download</a>&gt; 
+          &lt;<a href="http://sourceforge.net/news/?group_id=23316" target="_top">News</a>&gt;&lt;<a href="http://sourceforge.net/projects/hsqldb" target="_top">Project 
+          Page</a>&gt; &lt;<a 
+        href="hsqlLicense.html" target="_top">License</a>&gt; </font> 
+        <dt><font size="-1">Contact and Support </font> 
+            <dd><font size="-1"> &lt;<a href="hsqlSupport.html" target="_top">Support</a>&gt;  &lt;<a href="hsqlFAQ.html" target="_top">FAQ</a>&gt; 
+          </font> 
+            <dt><font size="-1">Documentation and Development </font> 
+            <dd><font size="-1">&lt;<a href="hsqlFeatures.html" target="_top">Features</a>&gt; 
+          &lt;<a href="hsqlDocsFrame.html" target="_top">Documentation</a>&gt; &lt;<a href="hsqlDevelopment.html" target="_top">Developers</a>&gt; &lt;<a href="changelog.html" target="_top">Changes</a>&gt; </font></dd>
+         </dl>
+      </td>
+   </tr>
+</table>
+ 
+ <div class="textbox">
+<!-- #BeginEditable "body" --> 
+  <h2>How To / FAQ</h2>
+  <p> <br>
+    <a href="hsqlFAQ.html#INSTALL">How to install and run HSQLDB</a> <br>
+    <a href="hsqlFAQ.html#RUNANDCOMPILE">How to compile HSQLDB</a> <br>
+    <a href="hsqlFAQ.html#NEWDB">How to create a new database</a> <br>
+    <a href="hsqlFAQ.html#START">How to start programming JDBC / HSQLDB</a> <br>
+    <a href="hsqlFAQ.html#DOCUMENTATION">Where to get more documentation</a> <br>
+    <a href="hsqlFAQ.html#JBUILDER">How to use HSQLDB inside JBuilder</a> <br>
+    <a href="hsqlFAQ.html#UPGRADE">How to upgrade from an old version</a> 
+  <p> <br>
+    <a href="hsqlFAQ.html#FAQ">Frequently Asked Questions</a> 
+  <p><a href="hsqlDocsFrame.html" target="_top">Documentation </a><br>
+    <a name="INSTALL"></a> 
+  <hr>
+  <br>
+  <h3>How to install and run HSQLDB</h3>
+  <p> 
+  <ul>
+    <li>Download the hsqldb.zip file in the download page to your local computer. 
+    <li>Uncompress the files. Any program that can handle zip files should work 
+      If you have trouble uncompressing the file and have installed a JDK you 
+      may also use the command line tool jar: open a command prompt, change to 
+      the directory where the file hsqldb.zip is, and type: <br>
+      jar -xf hsqldb.zip 
+    <li>You need a Java Runtime Environment (JRE) or Java Development Kit (JDK) 
+      to run HSQLDB. 
+    <li>Browse the documentation included in the hsqldb folder. Start with 'index.html'.<br>
+      <a name="RUNANDCOMPILE"></a> 
+  </ul>
+  <hr>
+  <h3>How to compile HSQLDB</h3>
+  <p> A compiled JAR of HSQLDB is included in the download. This runs under JRE 
+    1.4 or later. If you want to re-compile for other JDK's, you will need a Java 
+    compiler. See the documentation in the /build directory. 
+  <p> Command line compiler tools are included in the free <a href="http://java.sun.com/j2se/">JDK 
+    (Java Development Kit) from Sun</a>. 
+  <p> <a name="NEWDB"></a> 
+  <hr>
+  <h3> How to create a new database </h3>
+  <p> A new database is created automatically if it does not yet exist. Just connect 
+    to the not-yet-existing database using the jdbc:hsqldb:file:&laquo;database-path&raquo; 
+    URL (should replace the last part with the path you want) with the user 'sa' 
+    and an empty password. 
+  <p> <a name="START"></a> 
+  <hr>
+  <h3>How to start programming JDBC / HSQLDB</h3>
+  <p> HSQLDB comes with documentation, example applets and source code that can 
+    help programers who are new to JDBC programming. 
+  <p> An example application is in the guide. Another example is FindFile.java 
+    in the /src/org/hsqldb/sample folder. This is a tool to search files. The 
+    source code of this demo application is well documented, and the functionality 
+    is kept low, so it should be easy to understand what is going on just reading 
+    the source code. 
+  <p> Because the source code of all other tools and applets is also included 
+    in the download, more advanced programmers will find some hints there. Check 
+    the sources in /src/org/hsqldb/sample and /src/org/hsqldb/test folders. 
+  <p> <a name="DOCUMENTATION"></a> 
+  <hr>
+  <h3>Where to get more Documentation</h3>
+  <p> HSQLDB has a standard JDBC interface that is supported by most databases. 
+    The JDBC interface is well documented in the JDK. Additionally, HSQLDB specific 
+    JDBC documentation is included in the /doc/src folder. 
+  <p> There are also many books available on JDBC programming. 
+  <p> For people who are interested in the database engine design of HSQLDB, the 
+    source code is where to look. 
+  <p> <a name="JBUILDER"></a> 
+  <hr>
+  <h3>How to use HSQLDB inside JBuilder, Eclipse, etc.</h3>
+  <p> To use HSQLDB at design-time in JBuilder, Eclipse or other tools, you usually 
+    require the plug-in for databases that comes with the development environment. 
+    You usually need to add a reference to the HSQLDB jar to the environment. 
+    Also you normally need to register the JDBC driver (which is part of the hsqldb.jar) 
+    with the environment. 
+  <p> <a name="UPGRADE"></a> 
+  <hr>
+  <h3>How to upgrade from an old version to the current version</h3>
+  <p> An old version database can always be opened by the latest version and automatically 
+    converted if there is no CACHED table data in the database (the *.data file 
+    is empty or does not exist). 
+  <p> It is often possible to open old databases with CACHED tables too. But sometimes 
+    a manual upgrade is necessary. The upgrade can be done like this. 
+  <p> 
+  <ul>
+    <li>Backup the old database. 
+    <li>Create a script of the old database with the old tools. Run the command: 
+      SCRIPT 'newdb.script' in the DatabaseManager of the old database version. 
+    <li>Install the new version of HSQLDB. 
+    <li>Run the Database Manager of the new version and connect to a new database 
+      named 'newdb'. Then issue the SHUTDOWN command. Copy the 'newdb.script' 
+      file that was saved by the old version of the software over the 'newdb.script' 
+      file of the new database. Then open the 'newdb'. The script file will be 
+      executed automatically by the new HSQLDB and new *.properties and *.data 
+      files will be created. 
+    <li>If there are compatibility issues arising from non-standard database definition 
+      in the old version, the new version of HSQLDB will report an error. You 
+      should close Database Manager before manually editing the newdb.script to 
+      remove the errors. 
+  </ul>
+  <p>Databases created with versions before 1.7.0 could have issues such as those 
+    listed below. Such errors are not accepted by 1.7.2:</p>
+  <ul>
+    <li>duplicate column names in one table</li>
+    <li>duplicate index or constraint name within the whole database</li>
+    <li>lack of a unique constraint in the parent table of a foreign key</li>
+    <li>existence of NULL values in primary key columns</li>
+    <li>use of SQL keywords as table or column identifiers</li>
+  </ul>
+  <p>Note that an upgrade is a one-way process, so please always keep a backup 
+    of the old database.</p>
+  <p> <a name="FAQ"></a> 
+  <hr>
+  <h2>Frequently Asked Questions</h2>
+  <p> 
+  <ul>
+    <li>How does HSQLDB compare to other RDBMS engines in SQL support / JDBC support 
+      <p>HSQLDB has very extensive support for SQL 92, 99 and 2003. This support 
+        is not full but is in some respects better than many other products. JDBC 
+        support is good and extends to real prepared and batch statements, full 
+        metadata reporting on database objects and result sets.</p>
+    <li>How does HSQLDB compare to other RDBMS engines in speed 
+      <p></p>
+      This is something that you can measure. Overall, HSQLDB is comparable in 
+      speed to non-java open-source RDBMS engines. It is generally much faster 
+      than java open-source engines in most operations. You can use the performance 
+      tests supplied with HSQLDB. One test, JDBCBench.java is a standard TPC-B 
+      implementation that measures speed and reliablility of multi-threaded access. 
+      Another test, TestCacheSize.java, is a single-threaded test for speed of 
+      INSERT, UPDATE, DELETE and SELECT operations with hundreds of thousands 
+      of rows. Some comparisons have been posted by users in our mailing list. 
+      Any specific SELECT query speed issues can normally be resolved with slight 
+      modifications to the query or by adding appropriate indexes. See the Guide 
+      for details.<br>
+      <br>
+    <li> How solid is HSQLDB 
+      <p>HSQLDB 1.7.2 has undergone several months of extensive user tests with 
+        over 10,000 downloads of the Release Candidate versions. This includes 
+        extensive SQL compatibility tests and stress tests by application vendors 
+        who use HSQLDB in their products. All the reported issues were fixed before 
+        the final release and no serious issue has been reported since the release. 
+        If any new issue arises, it will be dealt with promptly. Reported problems 
+        since the original releas have been fixed promptly in revisions.</p>
+    <li>How solid is HSQLDB when a machine crashes<br>
+      <br>
+      HSQLDB employs a redo log for data recovery. All the changes to the database 
+      are reflected in this log. Extensive user tests have demonstrated this mechanism 
+      to be effective and fail-safe in most cases. For added security, you can 
+      backup the database files while the engine is running.<br>
+      <br>
+    <li>Can HSQLDB handle multithreading? 
+      <p> The core engine is currently not multithreaded (*), but it is multithreading-safe. 
+        The Server is multithreading and responds to requests while any database 
+        core is busy. Application that are multithreading can use the database, 
+        but all requests are executed one after the other per database, this means 
+        only one at a time. This model contributes to speed, reliability, and 
+        completely avoids issues such as deadlocks (*). There is a separate timer 
+        thread for saving the transaction log to disk. Server modes also use threads 
+        to respond to connection request. 
+      <p> 
+    <li> What are the limitations of the database (size of columns, number of 
+      tables, rows...)? 
+      <p> There is no imposed limitation. Number of columns, tables, indexes, 
+        size of columns and so on is limited only by the memory. For example, 
+        a user reported using a SELECT statement with 41 LEFT OUTER JOIN clauses 
+        on a huge database for a data mining application. 
+      <p> 
+    <li> My database runs out of memory / How much memory does a database need? 
+      <p> If only memory tables (CREATE TABLE or CREATE MEMORY TABLE) are used 
+        then the database is limited by the memory. A minimum of bout 100 bytes 
+        plus the actual data size are required for each row. If you use CREATE 
+        CACHED TABLE, then the size of the table is not limited by the memory 
+        beyond a certain minimum size. The data and indexes of cached tables are 
+        saved to disk. With text tables, indexes are memory resident but the data 
+        is cached to disk. 
+      <p> 
+    <li> What is the biggest known HSQLDB database? 
+      <p> With previous versions tests had been made with 4,000,000 records using 
+        the SelfTest (TestSelf) application (insert, update, delete). The size 
+        of the database was then over 400 MB. For this tests the main memory was 
+        limited to 16 MB. The current size limit of an HSQLDB database is 2 GB 
+        (the biggest integer value) for all CACHED tables, 2GB for each TEXT table 
+        and less than 2GB for all memory tables. Extensive tests have been made 
+        with the latest versions using the TestCacheSize application inserting 
+        millions of rows and resulting in data files of over 1 GB. 
+      <p> 
+    <li> May I use HSQLDB in a commercial product? 
+      <p> Yes. HSQLDB is Open Source and free to use in any commercial product 
+        so long as the terms of the Licenses are met. The Licenses of HSQLDB and 
+        Hypersonic SQL (on which HSQLDB is based) are both based on the new BSD 
+        License. 
+      <p> 
+    <li> After the program is finished, almost all statements are in the *.log 
+      file, and the *.data file is almost empty. Why? 
+      <p> If data has been added to CACHED tables then the database was not shut 
+        down properly. When you restart the database, the *.log file will be processed 
+        and an automatic checkpoint will be performed. No commited data will be 
+        lost. <br>
+        <br>
+        The statements that make up the database are saved in the *.script file 
+        (mostly CREATE statements and INSERT statements for memory tables). Only 
+        data of cached tables (CREATE CACHED TABLE) are stored in the *.data file. 
+        Also all data manipulation operations are stored in the *.log file (mostly 
+        DELETE/INSERT) for crash recovery. When the SHUTDOWN or CHECKPOINT command 
+        is issued to a database, then the *.script file is re-created and becomes 
+        up-to-date. The .log file is deleted. The *.data file is also closed and 
+        backed up as the *.backup file. When the database is restarted, all statements 
+        of the *.script file are executed first and new statements are appended 
+        to the .log file as the database is used. <br>
+        <br>
+        See full description in the <a href="../doc/guide/apc.html">Guide</a>. 
+    </ul>
+  <p>&nbsp;</p>
+  <p align="center"><font size="-1">This text is based on HypersonicSQL documentation, 
+    updated to reflect the latest version of HSQLDB</font></p>
+  <!-- #EndEditable -->
+ </div>
+<p> 
+ 
+<a href="http://sourceforge.net"> <img src="http://sourceforge.net/sflogo.php?group_id=23316" width="95" height="32" border="0" alt="SourceForge Logo"></a> 
+<!-- #BeginEditable "extralogo" --><!-- #EndEditable --> 
+<h6 align="center"> This page last updated <!-- #BeginEditable "update" -->29 
+  November 2004<!-- #EndEditable --></h6>
+<h6> Java is a Trademark of Sun Microsystems, Inc. (under various licenses). <i>Contents 
+  of this page are &copy;2001-2004 <a href="http://hsqldb.sourceforge.net" target="_top">The 
+  hsqldb Development Group.</a> All rights reserved under the terms of the applicable 
+  <a href="hsqlLicense.html" target="_top">Licenses</a>. Questions and 
+  comments about this page may be addressed to the <a href="mailto:dedmike@users.sourceforge.net">Webmaster</a>.</i></h6>
+</body>
+<!-- #EndTemplate -->
