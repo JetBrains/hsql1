@@ -1030,7 +1030,9 @@ implements org.hsqldb.Trigger {
     public static void main(String[] sa) {
 
         if (sa.length > 0 && sa[0].startsWith("-g")) {
-            junit.swingui.TestRunner.run(TestSchemaParse.class);
+            // junit.swingui.TestRunner.run(TestSchemaParse.class);
+            System.err.println("The '-g' option is not supported because of no swingGUI.");
+            System.exit(-99);
         } else {
             junit.textui.TestRunner runner = new junit.textui.TestRunner();
 

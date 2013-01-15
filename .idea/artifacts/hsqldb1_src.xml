@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="hsqldb1.src">
+    <output-path>$PROJECT_DIR$/out</output-path>
+    <root id="root">
+      <element id="archive" name="hsqldb1.src.zip">
+        <element id="dir-copy" path="$PROJECT_DIR$/HSQL/src" />
+      </element>
+    </root>
+  </artifact>
+</component>
