@@ -37,6 +37,8 @@ import org.hsqldb.lib.IntValueHashMap;
 import org.hsqldb.lib.Iterator;
 import org.hsqldb.lib.Set;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * A Grantee Object holds the name, access and administrative rights for a
  * particular grantee.<p>
@@ -401,7 +403,7 @@ public class Grantee {
      */
     boolean isAccessible(String functionName) throws HsqlException {
 
-        if (functionName.startsWith("org.hsqldb.Library")
+        if (functionName.startsWith(HSQL_PACKAGE+".Library")
                 || functionName.startsWith("java.lang.Math")) {
             return true;
         }

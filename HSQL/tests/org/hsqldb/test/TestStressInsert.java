@@ -39,6 +39,8 @@ import java.sql.Statement;
 import java.util.Random;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * Test with small cache and very large row inserts
@@ -53,8 +55,8 @@ public class TestStressInsert {
 
     public void init() throws Exception {
 
-        String driver = "org.hsqldb.jdbcDriver";
-        String url    = "jdbc:hsqldb:file:testing/test";
+        String driver = HSQL_PACKAGE+".jdbcDriver";
+        String url    = S_URL_PREFIX+"file:testing/test";
 
         jdbcDataSource dataSource = new jdbcDataSource();
 

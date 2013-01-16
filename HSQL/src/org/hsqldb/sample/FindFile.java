@@ -78,6 +78,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Extract a directory tree and store in an HSQLDB database.
@@ -109,7 +110,7 @@ class FindFile {
             // 'testfiles' in the URL is the name of the database
             jdbcDataSource dataSource = new jdbcDataSource();
 
-            dataSource.setDatabase("jdbc:hsqldb:file:testfiles");
+            dataSource.setDatabase(S_URL_PREFIX+"file:testfiles");
 
             // Connect to the database
             // It will be create automatically if it does not yet exist

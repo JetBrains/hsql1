@@ -52,6 +52,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 /**
  * Class declaration
  *
@@ -64,9 +67,9 @@ implements ActionListener, ItemListener, KeyListener {
 
     static final String[][] sJDBCTypes = {
         {
-            "HSQL In-Memory", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:."
+            "HSQL In-Memory", HSQL_PACKAGE+".jdbcDriver", S_URL_PREFIX+"mem:."
         }, {
-            "HSQL Standalone", "org.hsqldb.jdbcDriver", "jdbc:hsqldb:test"
+            "HSQL Standalone", HSQL_PACKAGE+".jdbcDriver", S_URL_PREFIX+"test"
         }, {
             "MM.MySQL", "org.gjt.mm.mysql.Driver", "jdbc:mysql://localhost/"
         }, {
@@ -129,13 +132,13 @@ implements ActionListener, ItemListener, KeyListener {
         p.add(types);
         p.add(createLabel("Driver:"));
 
-        mDriver = new TextField("org.hsqldb.jdbcDriver");
+        mDriver = new TextField(HSQL_PACKAGE+".jdbcDriver");
 
         mDriver.addKeyListener(this);
         p.add(mDriver);
         p.add(createLabel("URL:"));
 
-        mURL = new TextField("jdbc:hsqldb:mem:.");
+        mURL = new TextField(S_URL_PREFIX+"mem:.");
 
         mURL.addKeyListener(this);
         p.add(mURL);

@@ -45,6 +45,7 @@ import junit.framework.TestResult;
 
 import org.hsqldb.jdbc.jdbcDataSource;
 import org.hsqldb.Server;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Tests JDBC java.sql.Savepoint support in context of new engine SQL-savepoint
@@ -61,8 +62,8 @@ public class TestJDBCSavepoints extends TestCase {
     String serverProps =
         "database.0=mem:test;dbname.0=;silent=true;trace=false";
 
-    String     url         = "jdbc:hsqldb:hsql://localhost";
-//    String     url = "jdbc:hsqldb:http://localhost";
+    String     url         = S_URL_PREFIX+"hsql://localhost";
+//    String     url = S_URL_PREFIX+"http://localhost";
     String     user;
     String     password;
     Statement  stmt;

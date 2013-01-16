@@ -33,6 +33,8 @@ package org.hsqldb;
 
 import org.hsqldb.HsqlNameManager.HsqlName;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * A simple structure class for holding the products of
  * statement compilation for later execution.
@@ -701,7 +703,7 @@ final class CompiledStatement {
                 subqueries[i].hasParams).append('\n');
 
             if (subqueries[i].select != null) {
-                sb.append("org.hsqldb.Select@").append(
+                sb.append(HSQL_PACKAGE+".Select@").append(
                     Integer.toHexString(subqueries[i].select.hashCode()));
             }
 

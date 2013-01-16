@@ -38,6 +38,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 public class TestBatchBug {
 
@@ -45,9 +46,9 @@ public class TestBatchBug {
     static final int    DECIMAL_FIELDS_PER_DATASET = 2;
     static final String TABLE_ATTR_CACHED          = "CACHED";
     static final String IN_PROCESS_FILE_URL =
-        "jdbc:hsqldb:/temp/hsqldb/perftest";
+        S_URL_PREFIX+"/temp/hsqldb/perftest";
     static final String HSQLDB_LOCALHOST_URL =
-        "jdbc:hsqldb:hsql://localhost/yourtest";
+        S_URL_PREFIX+"hsql://localhost/yourtest";
     ;
     static final String TEST_TABLE_NAME       = "CSBug";
     static String       FIELD_LIST_WITHOUT_ID = "Kennung, Last_Update ";

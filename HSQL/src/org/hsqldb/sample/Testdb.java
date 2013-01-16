@@ -38,6 +38,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Title:        Testdb
@@ -64,7 +65,7 @@ public class Testdb {
         // current working directory
         jdbcDataSource dataSource = new jdbcDataSource();
 
-        dataSource.setDatabase("jdbc:hsqldb:" + db_file_name_prefix);
+        dataSource.setDatabase(S_URL_PREFIX + db_file_name_prefix);
 
         conn = dataSource.getConnection("sa", "");
     }

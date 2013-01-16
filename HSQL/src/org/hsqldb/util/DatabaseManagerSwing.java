@@ -148,6 +148,9 @@ import javax.swing.tree.TreePath;
 import org.hsqldb.lib.RCData;
 import org.hsqldb.lib.java.JavaSystem;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 //dmarshall@users - 20020101 - original swing port of DatabaseManager
 //sqlbob@users 20020401 - patch 537501 by ulrivo - commandline arguments
 //sqlbob@users 20020407 - patch 1.7.0 - reengineering and enhancements
@@ -401,8 +404,8 @@ implements ActionListener, WindowListener, KeyListener, MouseListener {
     //getToolkit().createCustomCursor(CommonSwing.getIcon("SystemCursor"),
     //                                new Point(4, 4), "HourGlass cursor");
     // (ulrivo): variables set by arguments from the commandline
-    static String  defDriver   = "org.hsqldb.jdbcDriver";
-    static String  defURL      = "jdbc:hsqldb:mem:.";
+    static String  defDriver   = HSQL_PACKAGE+".jdbcDriver";
+    static String  defURL      = S_URL_PREFIX+"mem:.";
     static String  defUser     = "SA";
     static String  defPassword = "";
     static String  defScript;

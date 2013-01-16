@@ -41,6 +41,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  *
@@ -58,7 +59,7 @@ public class TestSubQueriesInPreparedStatements {
         Statement         stmnt;
         PreparedStatement pstmnt;
         jdbcDataSource dataSource = new jdbcDataSource();
-        dataSource.setDatabase("jdbc:hsqldb:mem:test");
+        dataSource.setDatabase(S_URL_PREFIX+"mem:test");
         conn = dataSource.getConnection("SA", "");
         stmnt  = conn.createStatement();
         pstmnt = conn.prepareStatement("drop table t if exists");

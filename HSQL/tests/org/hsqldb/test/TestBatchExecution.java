@@ -39,6 +39,7 @@ import java.sql.Statement;
 
 import org.hsqldb.lib.StopWatch;
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * A quick test of the new CompiledStatement and batch execution facilities.
@@ -119,7 +120,7 @@ public class TestBatchExecution extends TestBase {
             db_path = args[1];
         } catch (Exception e) {}
 
-        url = "jdbc:hsqldb:file:" + db_path;
+        url = S_URL_PREFIX+"file:" + db_path;
 
         runTests(runs);
     }
@@ -301,7 +302,7 @@ public class TestBatchExecution extends TestBase {
         try {
             jdbcDataSource dataSource = new jdbcDataSource();
 
-            dataSource.setDatabase("jdbc:hsqldb:.");
+            dataSource.setDatabase(S_URL_PREFIX+".");
 
             Connection con = dataSource.getConnection("SA", "");
 

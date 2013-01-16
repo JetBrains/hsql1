@@ -44,6 +44,8 @@ import org.hsqldb.lib.HsqlByteArrayInputStream;
 import org.hsqldb.lib.SimpleLog;
 import org.hsqldb.lib.Storage;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // fredt@users 20030111 - patch 1.7.2 by bohgammer@users - pad file before seek() beyond end
 // some incompatible JVM implementations do not allow seek beyond the existing end of file
 
@@ -139,7 +141,7 @@ class ScaledRAFile implements ScaledRAInterface {
                 Class.forName("java.nio.MappedByteBuffer");
 
                 Class c =
-                    Class.forName("org.hsqldb.persist.ScaledRAFileHybrid");
+                    Class.forName(HSQL_PACKAGE+".persist.ScaledRAFileHybrid");
                 Constructor constructor = c.getConstructor(new Class[] {
                     Database.class, String.class, boolean.class
                 });

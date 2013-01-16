@@ -37,6 +37,8 @@ import java.sql.DriverManager;
 import org.hsqldb.Server;
 
 import junit.framework.TestCase;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * HSQLDB TestBugBase Junit test case. <p>
@@ -48,9 +50,9 @@ import junit.framework.TestCase;
 public abstract class TestBugBase extends TestCase {
 
     //  change the url to reflect your preferred db location and name
-    //  String url = "jdbc:hsqldb:hsql://localhost/yourtest";
+    //  String url = S_URL_PREFIX+"hsql://localhost/yourtest";
     String serverProps = "database.0=mem:test";
-    String url         = "jdbc:hsqldb:hsql://localhost";
+    String url         = S_URL_PREFIX+"hsql://localhost";
     String user        = "sa";
     String password    = "";
     Server server;
@@ -69,7 +71,7 @@ public abstract class TestBugBase extends TestCase {
         server.start();
 
         try {
-            Class.forName("org.hsqldb.jdbcDriver");
+            Class.forName(HSQL_PACKAGE+".jdbcDriver");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(this + ".setUp() error: " + e.getMessage());

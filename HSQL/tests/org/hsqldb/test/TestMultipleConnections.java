@@ -36,6 +36,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 public class TestMultipleConnections {
 
@@ -91,7 +92,7 @@ public class TestMultipleConnections {
         try {
             jdbcDataSource dataSource = new jdbcDataSource();
 
-            dataSource.setDatabase("jdbc:hsqldb:/hsql/test/test");
+            dataSource.setDatabase(S_URL_PREFIX+"/hsql/test/test");
 
             return dataSource.getConnection("sa", "");
         } catch (Exception ex) {

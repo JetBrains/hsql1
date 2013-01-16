@@ -38,6 +38,9 @@ import java.sql.Statement;
 
 import org.hsqldb.persist.HsqlProperties;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 /*
  *  Shutdown class for Server, used by hsqldbserver to shutdown the server
  *
@@ -48,7 +51,7 @@ public class ShutdownServer {
     public static void main(String[] arg) {
 
         boolean webserver;
-        String  driver = "org.hsqldb.jdbcDriver";
+        String  driver = HSQL_PACKAGE+".jdbcDriver";
         String  url;
         String  user;
         String  password;
@@ -69,8 +72,8 @@ public class ShutdownServer {
         HsqlProperties props = HsqlProperties.argArrayToProps(arg, "server");
 
         webserver  = props.isPropertyTrue("server.webserver", false);
-        defaulturl = webserver ? "jdbc:hsqldb:http://localhost"
-                               : "jdbc:hsqldb:hsql://localhost";
+        defaulturl = webserver ? S_URL_PREFIX+"http://localhost"
+                               : S_URL_PREFIX+"hsql://localhost";
 
         int defaultport = webserver ? 80
                                     : 9001;

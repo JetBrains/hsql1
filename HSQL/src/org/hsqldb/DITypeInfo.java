@@ -36,6 +36,8 @@ import java.util.Locale;
 import org.hsqldb.resources.BundleHandler;
 import org.hsqldb.store.ValuePool;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Provides information intrinsic to each standard data type known to
  * HSQLDB.  This includes all types for which standard type codes are known
@@ -201,22 +203,22 @@ final class DITypeInfo {
         switch (type) {
 
             case Types.ARRAY :
-                return "org.hsqldb.jdbc.jdbcArray";
+                return HSQL_PACKAGE+".jdbc.jdbcArray";
 
             case Types.BLOB :
-                return "org.hsqldb.jdbc.jdbcBlob";
+                return HSQL_PACKAGE+".jdbc.jdbcBlob";
 
             case Types.CLOB :
-                return "org.hsqldb.jdbc.jdbcClob";
+                return HSQL_PACKAGE+".jdbc.jdbcClob";
 
             case Types.DISTINCT :
-                return "org.hsqldb.jdbc.jdbcDistinct";
+                return HSQL_PACKAGE+".jdbc.jdbcDistinct";
 
             case Types.REF :
-                return "org.hsqldb.jdbc.jdbcRef";
+                return HSQL_PACKAGE+".jdbc.jdbcRef";
 
             case Types.STRUCT :
-                return "org.hsqldb.jdbc.jdbcStruct";
+                return HSQL_PACKAGE+".jdbc.jdbcStruct";
 
             default :
                 return null;

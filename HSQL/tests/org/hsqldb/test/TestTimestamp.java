@@ -45,6 +45,7 @@ import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 public class TestTimestamp extends TestCase {
 
@@ -62,9 +63,9 @@ public class TestTimestamp extends TestCase {
 
         jdbcDataSource dataSource = new jdbcDataSource();
 
-        dataSource.setDatabase("jdbc:hsqldb:mem:.");
+        dataSource.setDatabase(S_URL_PREFIX+"mem:.");
 
-//        dataSource.setDatabase("jdbc:hsqldb:hsql://localhost/yourtest");
+//        dataSource.setDatabase(S_URL_PREFIX+"hsql://localhost/yourtest");
         conn = dataSource.getConnection("sa", "");
 
         conn.setAutoCommit(false);

@@ -85,6 +85,10 @@ import org.hsqldb.persist.HsqlDatabaseProperties;
 import org.hsqldb.scriptio.ScriptWriterBase;
 import org.hsqldb.scriptio.ScriptWriterText;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Provides SQL Interpreter services relative to a Session and
  * its Database.
@@ -2773,7 +2777,7 @@ class DatabaseCommandInterpreter {
      * Responsible for handling tail of ALTER TABLE ... DROP CONSTRAINT ...
      *
      * @param t table
-     * @param name
+     * @param cname
      * @throws HsqlException
      */
     private void processAlterTableDropConstraint(Table t,
@@ -3188,14 +3192,14 @@ class DatabaseCommandInterpreter {
 // fredt@users 20020221 - patch 513005 by sqlbob@users (RMP) - ABS function
     static final String oldLib    = "org.hsql.Library.";
     static final int    oldLibLen = oldLib.length();
-    static final String newLib    = "org.hsqldb.Library.";
+    static final String newLib    = HSQL_PACKAGE+".Library.";
 
     private static String upgradeMethodFQN(String fqn) {
 
         if (fqn.startsWith(oldLib)) {
             fqn = newLib + fqn.substring(oldLibLen);
         } else if (fqn.equals("java.lang.Math.abs")) {
-            fqn = "org.hsqldb.Library.abs";
+            fqn = HSQL_PACKAGE+".Library.abs";
         }
 
         return fqn;

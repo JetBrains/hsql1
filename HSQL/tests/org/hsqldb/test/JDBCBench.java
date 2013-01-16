@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Enumeration;
 import java.util.Vector;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 class JDBCBench {
 
@@ -85,7 +86,7 @@ class JDBCBench {
                         ShutdownCommand = "SHUTDOWN";
                     }
 
-                    if (DriverName.equals("org.hsqldb.jdbcDriver")) {
+                    if (DriverName.equals(HSQL_PACKAGE+".jdbcDriver")) {
                         tableExtension  = "CREATE CACHED TABLE ";
 //                        ShutdownCommand = "SHUTDOWN";
                         startupCommand  = "";

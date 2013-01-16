@@ -100,6 +100,9 @@ import java.awt.event.WindowListener;
 
 import org.hsqldb.lib.java.JavaSystem;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 /**
  * Simple demonstration applet
  *
@@ -192,8 +195,8 @@ implements WindowListener, ActionListener {
             } catch (Exception e) {}
         }
 
-        String  driver   = p.getProperty("driver", "org.hsqldb.jdbcDriver");
-        String  url      = p.getProperty("url", "jdbc:hsqldb:");
+        String  driver   = p.getProperty("driver", HSQL_PACKAGE+".jdbcDriver");
+        String  url      = p.getProperty("url", S_URL_PREFIX+"");
         String  database = p.getProperty("database", ".");
         String  user     = p.getProperty("user", "sa");
         String  password = p.getProperty("password", "");

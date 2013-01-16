@@ -46,6 +46,8 @@ import org.hsqldb.Trace;
 import org.hsqldb.lib.StringUtil;
 import org.hsqldb.persist.HsqlDatabaseProperties;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // fredt@users 20020320 - patch 1.7.0 - JDBC 2 support and error trapping
 // JDBC 2 methods can now be called from jdk 1.1.x - see javadoc comments
 // boucherb@users 20020509 - added "throws SQLException" to all methods where
@@ -456,7 +458,7 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     public boolean isReadOnly() throws SQLException {
 
         ResultSet rs =
-            execute("CALL \"org.hsqldb.Library.isReadOnlyDatabase\"()");
+            execute("CALL \""+HSQL_PACKAGE+".Library.isReadOnlyDatabase\"()");
 
         rs.next();
 
@@ -575,7 +577,7 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     public String getDatabaseProductName() throws SQLException {
 
         ResultSet rs =
-            execute("call \"org.hsqldb.Library.getDatabaseProductName\"()");
+            execute("CALL \""+HSQL_PACKAGE+".Library.getDatabaseProductName\"()");
 
         rs.next();
 
@@ -604,7 +606,7 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     public String getDatabaseProductVersion() throws SQLException {
 
         ResultSet rs =
-            execute("call \"org.hsqldb.Library.getDatabaseProductVersion\"()");
+            execute("CALL \""+HSQL_PACKAGE+".Library.getDatabaseProductVersion\"()");
 
         rs.next();
 
@@ -5235,7 +5237,7 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     public int getDatabaseMajorVersion() throws SQLException {
 
         ResultSet rs =
-            execute("call \"org.hsqldb.Library.getDatabaseMajorVersion\"()");
+            execute("CALL \""+HSQL_PACKAGE+".Library.getDatabaseMajorVersion\"()");
 
         rs.next();
 
@@ -5271,7 +5273,7 @@ public class jdbcDatabaseMetaData implements DatabaseMetaData {
     public int getDatabaseMinorVersion() throws SQLException {
 
         ResultSet rs =
-            execute("call \"org.hsqldb.Library.getDatabaseMinorVersion\"()");
+            execute("CALL \""+HSQL_PACKAGE+".Library.getDatabaseMinorVersion\"()");
 
         rs.next();
 

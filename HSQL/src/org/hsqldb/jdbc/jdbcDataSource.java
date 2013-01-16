@@ -47,6 +47,8 @@ import javax.sql.DataSource;
 //#endif JAVA4
 import org.hsqldb.jdbcDriver;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // boucherb@users 20040411 - doc 1.7.2 - javadoc updates toward 1.7.2 final
 
 /**
@@ -224,7 +226,7 @@ public class jdbcDataSource implements Serializable {
 //#ifdef JAVA4
     public Reference getReference() throws NamingException {
 
-        String    cname = "org.hsqldb.jdbc.jdbcDataSourceFactory";
+        String    cname = HSQL_PACKAGE+".jdbc.jdbcDataSourceFactory";
         Reference ref   = new Reference(getClass().getName(), cname, null);
 
         ref.add(new StringRefAddr("database", getDatabase()));

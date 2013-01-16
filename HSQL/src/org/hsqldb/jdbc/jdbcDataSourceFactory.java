@@ -38,6 +38,9 @@ import javax.naming.Name;
 import javax.naming.Reference;
 import javax.naming.spi.ObjectFactory;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
+
 // boucherb@users 20040411 - doc 1.7.2 - javadoc updates toward 1.7.2 final
 
 /**
@@ -68,7 +71,7 @@ public class jdbcDataSourceFactory implements ObjectFactory {
     public Object getObjectInstance(Object obj, Name name, Context nameCtx,
                                     Hashtable environment) throws Exception {
 
-        String    dsClass = "org.hsqldb.jdbc.jdbcDataSource";
+        String    dsClass = HSQL_PACKAGE+".jdbc.jdbcDataSource";
         Reference ref     = (Reference) obj;
 
         if (ref.getClassName().equals(dsClass)) {

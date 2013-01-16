@@ -41,6 +41,7 @@ import java.util.Random;
 import org.hsqldb.lib.StopWatch;
 import org.hsqldb.persist.HsqlProperties;
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Test large tables containing columns of different types.
@@ -48,7 +49,7 @@ import org.hsqldb.jdbc.jdbcDataSource;
  */
 public class TestAllTypes {
 
-    protected String url = "jdbc:hsqldb:";
+    protected String url = S_URL_PREFIX;
 
 //    protected String filepath = ".";
     protected String filepath = "/hsql/testalltypes/test";

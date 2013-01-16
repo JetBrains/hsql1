@@ -229,7 +229,7 @@ import org.hsqldb.resources.BundleHandler;
  *
  * @jmx.mbean
  *    description="HSQLDB Server"
- *    extends="org.hsqldb.mx.mbean.RegistrationSupportBaseMBean"
+ *    extends=HSQL_PACKAGE+".mx.mbean.RegistrationSupportBaseMBean"
  *
  * @jboss.xmbean
  */

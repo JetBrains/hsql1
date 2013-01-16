@@ -46,6 +46,9 @@ import org.hsqldb.Trace;
 import org.hsqldb.Trigger;
 import org.hsqldb.lib.StringUtil;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 // peterhudson@users 20020130 - patch 478657 by peterhudson - new class
 // fredt@users 20030727 - signature altered
 // boucherb@users 20040315 - sample updated
@@ -126,8 +129,8 @@ import org.hsqldb.lib.StringUtil;
 public class TriggerSample implements Trigger {
 
     static final PrintWriter out  = new PrintWriter(System.out);
-    static final String      drv  = "org.hsqldb.jdbcDriver";
-    static final String      url  = "jdbc:hsqldb:mem:trigger-sample";
+    static final String      drv  = HSQL_PACKAGE+".jdbcDriver";
+    static final String      url  = S_URL_PREFIX+"mem:trigger-sample";
     static final String      usr  = "sa";
     static final String      pwd  = "";
     static final String      impl = TriggerSample.class.getName();

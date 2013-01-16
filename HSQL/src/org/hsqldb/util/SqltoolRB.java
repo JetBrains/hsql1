@@ -34,6 +34,8 @@ package org.hsqldb.util;
 import java.util.Map;
 import java.util.HashMap;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /* $Id: SqltoolRB.java,v 1.7 2007/07/25 04:33:59 unsaved Exp $ */
 
 /**
@@ -476,7 +478,7 @@ public class SqltoolRB extends ValidatingResourceBundle {
     }
 
     public SqltoolRB() {
-        super("org.hsqldb.util.sqltool");
+        super(HSQL_PACKAGE+".util.sqltool");
         if (memberKeyArray == null)
             throw new RuntimeException("'static memberKeyArray not set");
         for (int i = 0; i < memberKeyArray.length; i += 2) {

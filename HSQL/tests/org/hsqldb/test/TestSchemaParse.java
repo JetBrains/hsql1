@@ -36,6 +36,8 @@ import java.sql.ResultSet;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 public class TestSchemaParse extends junit.framework.TestCase
 implements org.hsqldb.Trigger {
@@ -48,7 +50,7 @@ implements org.hsqldb.Trigger {
 
         org.hsqldb.jdbcDriver.class.getName();
 
-        con = DriverManager.getConnection("jdbc:hsqldb:mem:parsetest", "sa",
+        con = DriverManager.getConnection(S_URL_PREFIX+"mem:parsetest", "sa",
                                           "");
         statement = con.createStatement();
 
@@ -75,7 +77,7 @@ implements org.hsqldb.Trigger {
         execSQL("CREATE UNIQUE INDEX tstind ON indexedtbl (i3)", 0);
         execSQL("CREATE SEQUENCE tstseq", 0);
         execSQL("CREATE TRIGGER tsttrig AFTER INSERT ON triggedtbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", 0);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", 0);
         execSQL("CREATE USER tstuser PASSWORD fake", 0);
         execSQL("CREATE TABLE constrainedtbl (i6 INT, vc6 VARCHAR, "
                 + "CONSTRAINT ucons UNIQUE(i6))", 0);
@@ -523,9 +525,9 @@ implements org.hsqldb.Trigger {
         execSQL("CREATE SEQUENCE bdropseq", 0);
         execSQL("CREATE SEQUENCE adropseq", 0);
         execSQL("CREATE TRIGGER adroptrig AFTER INSERT ON adroptbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", 0);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", 0);
         execSQL("CREATE TRIGGER bdroptrig AFTER INSERT ON bdroptbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", 0);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", 0);
         execSQL("CREATE VIEW adropviewx AS SELECT * FROM adroptbl", 0);
         execSQL("CREATE VIEW bdropviewx AS SELECT * FROM bdroptbl", 0);
         execSQL("ALTER TABLE playtbl ADD COLUMN newc VARCHAR", 0);    // prep
@@ -619,7 +621,7 @@ implements org.hsqldb.Trigger {
         execSQL("CREATE " + pref + "SEQUENCE tstseqb", expect);
         execSQL("CREATE " + pref
                 + "TRIGGER tsttrigx AFTER INSERT ON triggedtbl CALL '"
-                + "org.hsqldb.test.BlaineTrig'", expect);
+                + HSQL_PACKAGE+".test.BlaineTrig'", expect);
         execSQL("CREATE " + pref + "USER tstusera PASSWORD fake", expect);
         execSQL("CREATE VIEW tstviewx " + pref
                 + "AS SELECT * FROM tsttbl WHERE i < 10", expect);
@@ -632,7 +634,7 @@ implements org.hsqldb.Trigger {
         execSQL("DROP INDEX tstinda IF EXISTS", 0);    // reset
         execSQL("CREATE TRIGGER tsttrigy " + pref
                 + "AFTER INSERT ON triggedtbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", expect);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", expect);
         execSQL("CREATE USER tstuserb " + pref + "PASSWORD fake", expect);
         execSQL("CREATE VIEW tstviewx AS " + pref
                 + "SELECT * FROM tsttbl WHERE i < 10", expect);
@@ -642,7 +644,7 @@ implements org.hsqldb.Trigger {
         execSQL("DROP INDEX tstinda IF EXISTS", 0);    // reset
         execSQL("CREATE TRIGGER tsttrigz AFTER " + pref
                 + "INSERT ON triggedtbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", expect);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", expect);
         execSQL("CREATE VIEW tstviewx AS SELECT * " + pref
                 + "FROM tsttbl WHERE i < 10", expect);
 
@@ -657,9 +659,9 @@ implements org.hsqldb.Trigger {
         execSQL("DROP VIEW tstviewx IF EXISTS", 0);    // reset
         execSQL("CREATE TRIGGER tsttriga AFTER INSERT " + pref
                 + "ON triggedtbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", expect);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", expect);
         execSQL("CREATE TRIGGER tsttrigb AFTER INSERT ON triggedtbl " + pref
-                + "CALL \"" + "org.hsqldb.test.BlaineTrig\"", expect);
+                + "CALL \"" + HSQL_PACKAGE+".test.BlaineTrig\"", expect);
         execSQL("CREATE VIEW tstviewx AS SELECT * FROM tsttbl " + pref
                 + "WHERE i < 10", expect);
         execSQL("DROP VIEW tstviewx IF EXISTS", 0);    // reset
@@ -675,7 +677,7 @@ implements org.hsqldb.Trigger {
         execSQL(pref + "CREATE USER tstuserd PASSWORD fake", expect);
         execSQL(pref
                 + "CREATE TRIGGER tsttrigd AFTER INSERT ON triggedtbl CALL \""
-                + "org.hsqldb.test.BlaineTrig\"", expect);
+                + HSQL_PACKAGE+".test.BlaineTrig\"", expect);
         execSQL(
             pref
             + "CREATE VIEW tstviewx AS SELECT * FROM tsttbl WHERE i < 10", expect);

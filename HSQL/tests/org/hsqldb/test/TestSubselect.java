@@ -38,6 +38,8 @@ import java.sql.Statement;
 
 import org.hsqldb.jdbc.jdbcDataSource;
 import junit.framework.TestCase;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * Test cases for HSQL subselects.
@@ -51,9 +53,9 @@ public class TestSubselect extends TestCase {
     //------------------------------------------------------------
     // Class variables
     //------------------------------------------------------------
-    private static final String databaseDriver = "org.hsqldb.jdbcDriver";
+    private static final String databaseDriver = HSQL_PACKAGE+".jdbcDriver";
     private static final String databaseURL =
-        "jdbc:hsqldb:/hsql/test/subselect";
+        S_URL_PREFIX+"/hsql/test/subselect";
     private static final String databaseUser     = "sa";
     private static final String databasePassword = "";
 

@@ -84,6 +84,8 @@ import org.hsqldb.lib.StringConverter;
 import org.hsqldb.store.ValuePool;
 import org.hsqldb.lib.HashSet;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // fredt@users 20020130 - patch 497872 by Nitin Chauhan - reordering for speed
 // fredt@users 20020215 - patch 1.7.0 by fredt - support GROUP BY with more than one column
 // fredt@users 20020215 - patch 1.7.0 by fredt - SQL standard quoted identifiers
@@ -1653,15 +1655,15 @@ class Parser {
 
     static {
         simpleFunctions.put(Token.T_CURRENT_DATE,
-                            "org.hsqldb.Library.curdate");
+                            HSQL_PACKAGE+".Library.curdate");
         simpleFunctions.put(Token.T_CURRENT_TIME,
-                            "org.hsqldb.Library.curtime");
+                            HSQL_PACKAGE+".Library.curtime");
         simpleFunctions.put(Token.T_CURRENT_TIMESTAMP,
-                            "org.hsqldb.Library.now");
-        simpleFunctions.put(Token.T_CURRENT_USER, "org.hsqldb.Library.user");
-        simpleFunctions.put(Token.T_SYSDATE, "org.hsqldb.Library.curdate");
-        simpleFunctions.put(Token.T_NOW, "org.hsqldb.Library.now");
-        simpleFunctions.put(Token.T_TODAY, "org.hsqldb.Library.curdate");
+                            HSQL_PACKAGE+".Library.now");
+        simpleFunctions.put(Token.T_CURRENT_USER, HSQL_PACKAGE+".Library.user");
+        simpleFunctions.put(Token.T_SYSDATE, HSQL_PACKAGE+".Library.curdate");
+        simpleFunctions.put(Token.T_NOW, HSQL_PACKAGE+".Library.now");
+        simpleFunctions.put(Token.T_TODAY, HSQL_PACKAGE+".Library.curdate");
     }
 
     /**
@@ -2185,7 +2187,7 @@ class Parser {
         readThis(Expression.OPEN);
 
         Function f = new Function(Token.T_POSITION,
-                                  "org.hsqldb.Library.position", false);
+                                  HSQL_PACKAGE+".Library.position", false);
 
         f.setArgument(0, readTerm());
         readThis(Expression.IN);
@@ -2207,7 +2209,7 @@ class Parser {
 
         // OK for now for CHECK search conditions
         Function f = new Function(Token.T_SUBSTRING,
-                                  "org.hsqldb.Library.substring", false);
+                                  HSQL_PACKAGE+".Library.substring", false);
 
         f.setArgument(0, readTerm());
 
@@ -2303,7 +2305,7 @@ class Parser {
         }
 
         // name argument is OK for now for CHECK constraints
-        Function f = new Function(Token.T_TRIM, "org.hsqldb.Library.trim",
+        Function f = new Function(Token.T_TRIM, HSQL_PACKAGE+".Library.trim",
                                   false);
 
         f.setArgument(0, readOr());

@@ -45,6 +45,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Test sql statements via jdbc against a database with cached tables
@@ -53,8 +54,8 @@ import org.hsqldb.jdbc.jdbcDataSource;
 public class TestSqlPersistent extends TestCase {
 
     // change the url to reflect your preferred db location and name
-//    String url = "jdbc:hsqldb:hsql://localhost/mytest";
-    String     url = "jdbc:hsqldb:/hsql/test/testpersistent";
+//    String url = S_URL_PREFIX+"hsql://localhost/mytest";
+    String     url = S_URL_PREFIX+"/hsql/test/testpersistent";
     String     user;
     String     password;
     Statement  sStatement;

@@ -32,11 +32,12 @@
 package org.hsqldb.test;
 
 import java.sql.Connection;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 public class TestTextTables extends TestBase {
 
     static String url =
-        "jdbc:hsqldb:file:testtext/test;sql.enforce_strict_size=true";
+        S_URL_PREFIX+"file:testtext/test;sql.enforce_strict_size=true";
 
     public TestTextTables(String name) {
         super(name, url, false);

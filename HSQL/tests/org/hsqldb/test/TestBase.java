@@ -39,6 +39,8 @@ import org.hsqldb.Server;
 import org.hsqldb.jdbc.jdbcDataSource;
 import junit.framework.TestCase;
 import junit.framework.TestResult;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * HSQLDB TestBugBase Junit test case. <p>
@@ -73,7 +75,7 @@ public abstract class TestBase extends TestCase {
 
         if (isNetwork) {
             if (url == null) {
-                url = "jdbc:hsqldb:hsql://localhost/test";
+                url = S_URL_PREFIX+"hsql://localhost/test";
             }
 
             server = new Server();
@@ -85,7 +87,7 @@ public abstract class TestBase extends TestCase {
             server.start();
         } else {
             if (url == null) {
-                url = "jdbc:hsqldb:file:test;sql.enforce_strict_size=true";
+                url = S_URL_PREFIX+"file:test;sql.enforce_strict_size=true";
             }
         }
     }
@@ -128,7 +130,7 @@ public abstract class TestBase extends TestCase {
         TestResult result   = run();
         String     testName = this.getClass().getName();
 
-        if (testName.startsWith("org.hsqldb.test.")) {
+        if (testName.startsWith(HSQL_PACKAGE+".test.")) {
             testName = testName.substring(16);
         }
 

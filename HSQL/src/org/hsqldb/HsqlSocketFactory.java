@@ -37,6 +37,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Base class for producing the Socket objects used by HSQLDB.
  *
@@ -148,7 +150,7 @@ public class HsqlSocketFactory {
 
         synchronized (HsqlSocketFactory.class) {
             if (sslImpl == null) {
-                sslImpl = newFactory("org.hsqldb.HsqlSocketFactorySecure");
+                sslImpl = newFactory(HSQL_PACKAGE+".HsqlSocketFactorySecure");
             }
         }
 

@@ -59,6 +59,9 @@ import java.awt.image.MemoryImageSource;
 
 import org.hsqldb.lib.java.JavaSystem;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 /**
  * Class declaration
  *
@@ -220,8 +223,8 @@ implements ActionListener, WindowListener, KeyListener {
 
         if ((defDriver != null && defURL != null) || (defDatabase != null)) {
             if (defDatabase != null) {
-                defDriver   = "org.hsqldb.jdbcDriver";
-                defURL      = "jdbc:hsqldb:" + defDatabase;
+                defDriver   = HSQL_PACKAGE+".jdbcDriver";
+                defURL      = S_URL_PREFIX + defDatabase;
                 defUser     = "SA";
                 defPassword = "";
             }

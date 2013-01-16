@@ -46,6 +46,8 @@ import org.hsqldb.lib.StringUtil;
 import org.hsqldb.lib.java.JavaSystem;
 import org.hsqldb.store.ValuePool;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Manages a .properties file for a database.
  *
@@ -97,7 +99,7 @@ public class HsqlDatabaseProperties extends HsqlProperties {
             return true;
         }
 
-        if (name.startsWith("org.hsqldb.Library.")) {
+        if (name.startsWith(HSQL_PACKAGE+".Library.")) {
             return true;
         }
 

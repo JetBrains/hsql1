@@ -82,6 +82,8 @@ import java.sql.Types;
 import org.hsqldb.jdbc.jdbcDataSource;
 import org.hsqldb.lib.Sort;
 import org.hsqldb.lib.StringComparator;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  *  Main test class, containing several JDBC and script based tests to
@@ -169,12 +171,12 @@ class TestSelf extends TestUtil {
             if (persistent) {
                 testPersistence();
                 deleteDatabase("test2");
-                test("jdbc:hsqldb:test2", "sa", "", true);
-                testPerformance("jdbc:hsqldb:test2", "sa", "", max, true);
+                test(S_URL_PREFIX+"test2", "sa", "", true);
+                testPerformance(S_URL_PREFIX+"test2", "sa", "", max, true);
             }
 
-            test("jdbc:hsqldb:.", "sa", "", false);
-            testPerformance("jdbc:hsqldb:.", "sa", "", max, false);
+            test(S_URL_PREFIX+".", "sa", "", false);
+            testPerformance(S_URL_PREFIX+".", "sa", "", max, false);
         } catch (Exception e) {
             print("TestSelf error: " + e.getMessage());
             e.printStackTrace();
@@ -230,7 +232,7 @@ class TestSelf extends TestUtil {
         deleteDatabase("test1");
 
         try {
-            String     url = "jdbc:hsqldb:test1;sql.enforce_strict_size=true";
+            String     url = S_URL_PREFIX+"test1;sql.enforce_strict_size=true";
             String     user        = "sa";
             String     password    = "";
             Connection cConnection = null;

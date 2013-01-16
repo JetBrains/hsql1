@@ -40,6 +40,8 @@ import org.hsqldb.lib.HsqlArrayList;
 import org.hsqldb.lib.Iterator;
 import org.hsqldb.lib.WrapperIterator;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // boucherb@users - 2004xxxx - patch 1.7.2
 // -- canonical database uri for catalog name reporting
 // -- enumXXX methods to iterateXXX
@@ -80,7 +82,7 @@ final class DINameSpace {
     // make temporary ad-hoc spec a little more "official"
     // until better system in place
     static {
-        builtin.add("org.hsqldb.Library");
+        builtin.add(HSQL_PACKAGE+".Library");
         builtin.add("java.lang.Math");
     }
 

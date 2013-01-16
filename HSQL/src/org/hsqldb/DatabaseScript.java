@@ -78,6 +78,10 @@ import org.hsqldb.lib.IntValueHashMap;
 import org.hsqldb.lib.Iterator;
 import org.hsqldb.lib.StringConverter;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Script generation.
  *
@@ -820,7 +824,7 @@ public class DatabaseScript {
 
                 if (nameobject instanceof String) {
                     if (nameobject.equals("java.lang.Math")
-                            || nameobject.equals("org.hsqldb.Library")) {
+                            || nameobject.equals(HSQL_PACKAGE+".Library")) {
                         continue;
                     }
 

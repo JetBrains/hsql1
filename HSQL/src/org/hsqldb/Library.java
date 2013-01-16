@@ -85,6 +85,8 @@ import org.hsqldb.lib.IntValueHashMap;
 import org.hsqldb.persist.HsqlDatabaseProperties;
 import org.hsqldb.store.ValuePool;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // fredt@users 20020210 - patch 513005 by sqlbob@users (RMP) - ABS function
 // fredt@users 20020305 - patch 1.7.0 - change to 2D string arrays
 // sqlbob@users 20020420- patch 1.7.0 - added HEXTORAW and RAWTOHEX.
@@ -129,7 +131,7 @@ public class Library {
         new FieldPosition(SimpleDateFormat.DAY_OF_WEEK_FIELD);
     public static final String[][] sNumeric = {
         {
-            "ABS", "org.hsqldb.Library.abs"
+            "ABS", HSQL_PACKAGE+".Library.abs"
         }, {
             "ACOS", "java.lang.Math.acos"
         }, {
@@ -143,7 +145,7 @@ public class Library {
         }, {
             "COS", "java.lang.Math.cos"
         }, {
-            "COT", "org.hsqldb.Library.cot"
+            "COT", HSQL_PACKAGE+".Library.cot"
         }, {
             "DEGREES", "java.lang.Math.toDegrees"
         }, {
@@ -153,11 +155,11 @@ public class Library {
         }, {
             "LOG", "java.lang.Math.log"
         }, {
-            "LOG10", "org.hsqldb.Library.log10"
+            "LOG10", HSQL_PACKAGE+".Library.log10"
         }, {
-            "MOD", "org.hsqldb.Library.mod"
+            "MOD", HSQL_PACKAGE+".Library.mod"
         }, {
-            "PI", "org.hsqldb.Library.pi"
+            "PI", HSQL_PACKAGE+".Library.pi"
         }, {
             "POWER", "java.lang.Math.pow"
         }, {
@@ -165,9 +167,9 @@ public class Library {
         }, {
             "RAND", "java.lang.Math.random"
         }, {
-            "ROUND", "org.hsqldb.Library.round"
+            "ROUND", HSQL_PACKAGE+".Library.round"
         }, {
-            "SIGN", "org.hsqldb.Library.sign"
+            "SIGN", HSQL_PACKAGE+".Library.sign"
         }, {
             "SIN", "java.lang.Math.sin"
         }, {
@@ -175,15 +177,15 @@ public class Library {
         }, {
             "TAN", "java.lang.Math.tan"
         }, {
-            "TRUNCATE", "org.hsqldb.Library.truncate"
+            "TRUNCATE", HSQL_PACKAGE+".Library.truncate"
         }, {
-            "BITAND", "org.hsqldb.Library.bitand"
+            "BITAND", HSQL_PACKAGE+".Library.bitand"
         }, {
-            "BITOR", "org.hsqldb.Library.bitor"
+            "BITOR", HSQL_PACKAGE+".Library.bitor"
         }, {
-            "BITXOR", "org.hsqldb.Library.bitxor"
+            "BITXOR", HSQL_PACKAGE+".Library.bitxor"
         }, {
-            "ROUNDMAGIC", "org.hsqldb.Library.roundMagic"
+            "ROUNDMAGIC", HSQL_PACKAGE+".Library.roundMagic"
         }
     };
 
@@ -191,107 +193,107 @@ public class Library {
 // the definition for SUBSTR was added
     public static final String[][] sString   = {
         {
-            "ASCII", "org.hsqldb.Library.ascii"
+            "ASCII", HSQL_PACKAGE+".Library.ascii"
         }, {
-            "BIT_LENGTH", "org.hsqldb.Library.bitLength"
+            "BIT_LENGTH", HSQL_PACKAGE+".Library.bitLength"
         }, {
-            "CHAR", "org.hsqldb.Library.character"
+            "CHAR", HSQL_PACKAGE+".Library.character"
         }, {
-            "CHAR_LENGTH", "org.hsqldb.Library.length"
+            "CHAR_LENGTH", HSQL_PACKAGE+".Library.length"
         }, {
-            "CHARACTER_LENGTH", "org.hsqldb.Library.length"
+            "CHARACTER_LENGTH", HSQL_PACKAGE+".Library.length"
         }, {
-            "CONCAT", "org.hsqldb.Library.concat"
+            "CONCAT", HSQL_PACKAGE+".Library.concat"
         }, {
-            "DIFFERENCE", "org.hsqldb.Library.difference"
+            "DIFFERENCE", HSQL_PACKAGE+".Library.difference"
         }, {
-            "HEXTORAW", "org.hsqldb.Library.hexToRaw"
+            "HEXTORAW", HSQL_PACKAGE+".Library.hexToRaw"
         }, {
-            "INSERT", "org.hsqldb.Library.insert"
+            "INSERT", HSQL_PACKAGE+".Library.insert"
         }, {
-            "LCASE", "org.hsqldb.Library.lcase"
+            "LCASE", HSQL_PACKAGE+".Library.lcase"
         }, {
-            "LEFT", "org.hsqldb.Library.left"
+            "LEFT", HSQL_PACKAGE+".Library.left"
         }, {
-            "LENGTH", "org.hsqldb.Library.length"
+            "LENGTH", HSQL_PACKAGE+".Library.length"
         }, {
-            "LOCATE", "org.hsqldb.Library.locate"
+            "LOCATE", HSQL_PACKAGE+".Library.locate"
         }, {
-            "LTRIM", "org.hsqldb.Library.ltrim"
+            "LTRIM", HSQL_PACKAGE+".Library.ltrim"
         }, {
-            "OCTET_LENGTH", "org.hsqldb.Library.octetLength"
+            "OCTET_LENGTH", HSQL_PACKAGE+".Library.octetLength"
         }, {
-            "RAWTOHEX", "org.hsqldb.Library.rawToHex"
+            "RAWTOHEX", HSQL_PACKAGE+".Library.rawToHex"
         }, {
-            "REPEAT", "org.hsqldb.Library.repeat"
+            "REPEAT", HSQL_PACKAGE+".Library.repeat"
         }, {
-            "REPLACE", "org.hsqldb.Library.replace"
+            "REPLACE", HSQL_PACKAGE+".Library.replace"
         }, {
-            "RIGHT", "org.hsqldb.Library.right"
+            "RIGHT", HSQL_PACKAGE+".Library.right"
         }, {
-            "RTRIM", "org.hsqldb.Library.rtrim"
+            "RTRIM", HSQL_PACKAGE+".Library.rtrim"
         }, {
-            "SOUNDEX", "org.hsqldb.Library.soundex"
+            "SOUNDEX", HSQL_PACKAGE+".Library.soundex"
         }, {
-            "SPACE", "org.hsqldb.Library.space"
+            "SPACE", HSQL_PACKAGE+".Library.space"
         }, {
-            "SUBSTR", "org.hsqldb.Library.substring"
+            "SUBSTR", HSQL_PACKAGE+".Library.substring"
         }, {
-            "SUBSTRING", "org.hsqldb.Library.substring"
+            "SUBSTRING", HSQL_PACKAGE+".Library.substring"
         }, {
-            "UCASE", "org.hsqldb.Library.ucase"
+            "UCASE", HSQL_PACKAGE+".Library.ucase"
         }, {
-            "LOWER", "org.hsqldb.Library.lcase"
+            "LOWER", HSQL_PACKAGE+".Library.lcase"
         }, {
-            "UPPER", "org.hsqldb.Library.ucase"
+            "UPPER", HSQL_PACKAGE+".Library.ucase"
         }
     };
     public static final String[][] sTimeDate = {
         {
-            "CURDATE", "org.hsqldb.Library.curdate"
+            "CURDATE", HSQL_PACKAGE+".Library.curdate"
         }, {
-            "CURTIME", "org.hsqldb.Library.curtime"
+            "CURTIME", HSQL_PACKAGE+".Library.curtime"
         }, {
-            "DATEDIFF", "org.hsqldb.Library.datediff"
+            "DATEDIFF", HSQL_PACKAGE+".Library.datediff"
         }, {
-            "DAYNAME", "org.hsqldb.Library.dayname"
+            "DAYNAME", HSQL_PACKAGE+".Library.dayname"
         }, {
-            "DAY", "org.hsqldb.Library.dayofmonth"
+            "DAY", HSQL_PACKAGE+".Library.dayofmonth"
         }, {
-            "DAYOFMONTH", "org.hsqldb.Library.dayofmonth"
+            "DAYOFMONTH", HSQL_PACKAGE+".Library.dayofmonth"
         }, {
-            "DAYOFWEEK", "org.hsqldb.Library.dayofweek"
+            "DAYOFWEEK", HSQL_PACKAGE+".Library.dayofweek"
         }, {
-            "DAYOFYEAR", "org.hsqldb.Library.dayofyear"
+            "DAYOFYEAR", HSQL_PACKAGE+".Library.dayofyear"
         }, {
-            "HOUR", "org.hsqldb.Library.hour"
+            "HOUR", HSQL_PACKAGE+".Library.hour"
         }, {
-            "MINUTE", "org.hsqldb.Library.minute"
+            "MINUTE", HSQL_PACKAGE+".Library.minute"
         }, {
-            "MONTH", "org.hsqldb.Library.month"
+            "MONTH", HSQL_PACKAGE+".Library.month"
         }, {
-            "MONTHNAME", "org.hsqldb.Library.monthname"
+            "MONTHNAME", HSQL_PACKAGE+".Library.monthname"
         }, {
-            "NOW", "org.hsqldb.Library.now"
+            "NOW", HSQL_PACKAGE+".Library.now"
         }, {
-            "QUARTER", "org.hsqldb.Library.quarter"
+            "QUARTER", HSQL_PACKAGE+".Library.quarter"
         }, {
-            "SECOND", "org.hsqldb.Library.second"
+            "SECOND", HSQL_PACKAGE+".Library.second"
         }, {
-            "WEEK", "org.hsqldb.Library.week"
+            "WEEK", HSQL_PACKAGE+".Library.week"
         }, {
-            "YEAR", "org.hsqldb.Library.year"
+            "YEAR", HSQL_PACKAGE+".Library.year"
         }, {
-            "TO_CHAR", "org.hsqldb.Library.to_char"
+            "TO_CHAR", HSQL_PACKAGE+".Library.to_char"
         }
     };
     public static final String[][] sSystem   = {
         {
-            "DATABASE", "org.hsqldb.Library.database"
+            "DATABASE", HSQL_PACKAGE+".Library.database"
         }, {
-            "USER", "org.hsqldb.Library.user"
+            "USER", HSQL_PACKAGE+".Library.user"
         }, {
-            "IDENTITY", "org.hsqldb.Library.identity"
+            "IDENTITY", HSQL_PACKAGE+".Library.identity"
         }
     };
 
@@ -2280,7 +2282,7 @@ public class Library {
         }
     }
 
-    static final String prefix       = "org.hsqldb.Library.";
+    static final String prefix       = HSQL_PACKAGE+".Library.";
     static final int    prefixLength = prefix.length();
 
     static int functionID(String fname) {

@@ -44,6 +44,9 @@ import java.util.Hashtable;
 
 import org.hsqldb.lib.java.JavaSystem;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 // sqlbob@users 20020407 - patch 1.7.0 - reengineering
 // fredt@users - 20040508 - modified patch by lonbinder@users for saving settings
 // weconsultants@users - 20041114 - patch 1.8.0 - Added MySQL Connector/J jbcDriver and granulated imports
@@ -62,17 +65,17 @@ class ConnectionDialogCommon {
     private static String[][]       connTypes;
     private static final String[][] sJDBCTypes = {
         {
-            "HSQL Database Engine In-Memory", "org.hsqldb.jdbcDriver",
-            "jdbc:hsqldb:mem:."
+            "HSQL Database Engine In-Memory", HSQL_PACKAGE+".jdbcDriver",
+            S_URL_PREFIX+"mem:."
         }, {
-            "HSQL Database Engine Standalone", "org.hsqldb.jdbcDriver",
-            "jdbc:hsqldb:file:\u00ABdatabase/path?\u00BB"
+            "HSQL Database Engine Standalone", HSQL_PACKAGE+".jdbcDriver",
+            S_URL_PREFIX+"file:\u00ABdatabase/path?\u00BB"
         }, {
-            "HSQL Database Engine Server", "org.hsqldb.jdbcDriver",
-            "jdbc:hsqldb:hsql://localhost/"
+            "HSQL Database Engine Server", HSQL_PACKAGE+".jdbcDriver",
+            S_URL_PREFIX+"hsql://localhost/"
         }, {
-            "HSQL Database Engine WebServer", "org.hsqldb.jdbcDriver",
-            "jdbc:hsqldb:http://\u00ABhostname/?\u00BB"
+            "HSQL Database Engine WebServer", HSQL_PACKAGE+".jdbcDriver",
+            S_URL_PREFIX+"http://\u00ABhostname/?\u00BB"
         }, {
             "JDBC-ODBC Bridge from Sun", "sun.jdbc.odbc.JdbcOdbcDriver",
             "jdbc:odbc:\u00ABdatabase?\u00BB"
@@ -130,7 +133,7 @@ class ConnectionDialogCommon {
             try {
                 plugTypes = (Vector) Class.forName(
                     System.getProperty(
-                        "org.hsqldb.util.ConnectionTypeClass")).newInstance();
+                        HSQL_PACKAGE+".util.ConnectionTypeClass")).newInstance();
             } catch (Exception e) {
                 ;
             }

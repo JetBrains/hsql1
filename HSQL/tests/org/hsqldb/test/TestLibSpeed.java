@@ -37,6 +37,7 @@ import org.hsqldb.lib.IntKeyHashMap;
 import org.hsqldb.lib.IntKeyIntValueHashMap;
 import org.hsqldb.lib.IntValueHashMap;
 import org.hsqldb.lib.StopWatch;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * @author fredt@users
@@ -45,7 +46,7 @@ public class TestLibSpeed {
 
     static final String[][] sNumeric = {
         {
-            "ABS", "org.hsqldb.Library.abs"
+            "ABS", HSQL_PACKAGE+".Library.abs"
         }, {
             "ACOS", "java.lang.Math.acos"
         }, {
@@ -59,7 +60,7 @@ public class TestLibSpeed {
         }, {
             "COS", "java.lang.Math.cos"
         }, {
-            "COT", "org.hsqldb.Library.cot"
+            "COT", HSQL_PACKAGE+".Library.cot"
         }, {
             "DEGREES", "java.lang.Math.toDegrees"
         }, {
@@ -69,11 +70,11 @@ public class TestLibSpeed {
         }, {
             "LOG", "java.lang.Math.log"
         }, {
-            "LOG10", "org.hsqldb.Library.log10"
+            "LOG10", HSQL_PACKAGE+".Library.log10"
         }, {
-            "MOD", "org.hsqldb.Library.mod"
+            "MOD", HSQL_PACKAGE+".Library.mod"
         }, {
-            "PI", "org.hsqldb.Library.pi"
+            "PI", HSQL_PACKAGE+".Library.pi"
         }, {
             "POWER", "java.lang.Math.pow"
         }, {
@@ -81,9 +82,9 @@ public class TestLibSpeed {
         }, {
             "RAND", "java.lang.Math.random"
         }, {
-            "ROUND", "org.hsqldb.Library.round"
+            "ROUND", HSQL_PACKAGE+".Library.round"
         }, {
-            "SIGN", "org.hsqldb.Library.sign"
+            "SIGN", HSQL_PACKAGE+".Library.sign"
         }, {
             "SIN", "java.lang.Math.sin"
         }, {
@@ -91,13 +92,13 @@ public class TestLibSpeed {
         }, {
             "TAN", "java.lang.Math.tan"
         }, {
-            "TRUNCATE", "org.hsqldb.Library.truncate"
+            "TRUNCATE", HSQL_PACKAGE+".Library.truncate"
         }, {
-            "BITAND", "org.hsqldb.Library.bitand"
+            "BITAND", HSQL_PACKAGE+".Library.bitand"
         }, {
-            "BITOR", "org.hsqldb.Library.bitor"
+            "BITOR", HSQL_PACKAGE+".Library.bitor"
         }, {
-            "ROUNDMAGIC", "org.hsqldb.Library.roundMagic"
+            "ROUNDMAGIC", HSQL_PACKAGE+".Library.roundMagic"
         }
     };
     static HashSet          hashSet  = new HashSet();

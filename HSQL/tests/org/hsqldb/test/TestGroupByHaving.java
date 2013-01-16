@@ -41,6 +41,8 @@ import org.hsqldb.Trace;
 import org.hsqldb.jdbc.jdbcDataSource;
 
 import junit.framework.TestCase;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
 
 /**
  * Test cases for HSQL aggregates and HAVING clause.
@@ -54,8 +56,8 @@ public class TestGroupByHaving extends TestCase {
     //------------------------------------------------------------
     // Class variables
     //------------------------------------------------------------
-    private static final String databaseDriver   = "org.hsqldb.jdbcDriver";
-    private static final String databaseURL      = "jdbc:hsqldb:mem:.";
+    private static final String databaseDriver   = HSQL_PACKAGE+".jdbcDriver";
+    private static final String databaseURL      = S_URL_PREFIX+"mem:.";
     private static final String databaseUser     = "sa";
     private static final String databasePassword = "";
 

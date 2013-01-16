@@ -41,6 +41,9 @@ package org.hsqldb;
  */
 public interface ServerConstants {
 
+    // source code and classes
+    String HSQL_PACKAGE = "org.hsqldb";
+
     // server states
     int SERVER_STATE_ONLINE   = 1;
     int SERVER_STATE_OPENING  = 4;

@@ -43,6 +43,7 @@ import org.hsqldb.jdbc.jdbcDataSource;
 import org.hsqldb.lib.FileUtil;
 import org.hsqldb.lib.StopWatch;
 import org.hsqldb.persist.HsqlProperties;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Test large cached tables by setting up a cached table of 100000 records
@@ -76,7 +77,7 @@ public class TestCacheSize {
     protected boolean shutdown = true;
 
     // fixed
-    protected String url = "jdbc:hsqldb:";
+    protected String url = S_URL_PREFIX;
 
 //    protected String  filepath = "hsql://localhost/mytest";
 //    protected String filepath = "mem:test";

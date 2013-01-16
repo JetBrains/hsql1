@@ -67,6 +67,9 @@ import java.awt.image.MemoryImageSource;
 import org.hsqldb.lib.java.JavaSystem;
 import org.hsqldb.lib.RCData;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
+
 // sqlbob@users 20020401 - patch 1.7.0 by sqlbob (RMP) - enhancements
 // sqlbob@users 20020401 - patch 537501 by ulrivo - command line arguments
 // sqlbob@users 20020407 - patch 1.7.0 - reengineering
@@ -160,8 +163,8 @@ implements ActionListener, WindowListener, KeyListener {
     String           ifHuge = "";
 
     // (ulrivo): variables set by arguments from the commandline
-    static String defDriver   = "org.hsqldb.jdbcDriver";
-    static String defURL      = "jdbc:hsqldb:mem:.";
+    static String defDriver   = HSQL_PACKAGE+".jdbcDriver";
+    static String defURL      = S_URL_PREFIX+"mem:.";
     static String defUser     = "SA";
     static String defPassword = "";
     static String defScript;

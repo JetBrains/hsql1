@@ -40,6 +40,8 @@ import org.hsqldb.resources.BundleHandler;
 import org.hsqldb.store.ValuePool;
 import org.hsqldb.types.Binary;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**@todo fredt - move Trace.doAssert() literals to Trace*/
 
 /**
@@ -348,7 +350,7 @@ final class DIProcedureInfo {
         // hierarchy parent is not final.
         //ARRAY
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcArray");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcArray");
 
             typeMap.put(c, ValuePool.getInt(Types.ARRAY));
         } catch (Exception e) {}
@@ -369,7 +371,7 @@ final class DIProcedureInfo {
         type = ValuePool.getInt(Types.BLOB);
 
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcBlob");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcBlob");
 
             typeMap.put(c, type);
         } catch (Exception e) {}
@@ -386,7 +388,7 @@ final class DIProcedureInfo {
         type = ValuePool.getInt(Types.CLOB);
 
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcClob");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcClob");
 
             typeMap.put(c, type);
         } catch (Exception e) {}
@@ -413,7 +415,7 @@ final class DIProcedureInfo {
 
         // DISTINCT
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcDistinct");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcDistinct");
 
             typeMap.put(c, ValuePool.getInt(Types.DISTINCT));
         } catch (Exception e) {}
@@ -462,7 +464,7 @@ final class DIProcedureInfo {
         type = ValuePool.getInt(Types.REF);
 
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcRef");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcRef");
 
             typeMap.put(c, type);
         } catch (Exception e) {}
@@ -477,7 +479,7 @@ final class DIProcedureInfo {
         type = ValuePool.getInt(Types.STRUCT);
 
         try {
-            c = nameSpace.classForName("org.hsqldb.jdbc.jdbcStruct");
+            c = nameSpace.classForName(HSQL_PACKAGE+".jdbc.jdbcStruct");
 
             typeMap.put(c, type);
         } catch (Exception e) {}

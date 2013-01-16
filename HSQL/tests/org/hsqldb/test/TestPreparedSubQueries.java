@@ -36,6 +36,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * @author kloska@users
@@ -89,7 +90,7 @@ class TestPreparedSubQueries {
         Connection con = null;
 
         try {
-            String url = "jdbc:hsqldb:test";
+            String url = S_URL_PREFIX+"test";
 
             jdbcDataSource dataSource = new jdbcDataSource();
 

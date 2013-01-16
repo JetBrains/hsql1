@@ -47,6 +47,8 @@ import org.hsqldb.lib.FileUtil;
 import org.hsqldb.lib.HsqlTimer;
 import org.hsqldb.lib.StringConverter;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /**
  * Base cooperative file locking implementation and <tt>LockFile</tt>
  * factory. <p>
@@ -484,7 +486,7 @@ public class LockFile {
                 try {
                     Class.forName("java.nio.channels.FileLock");
 
-                    clazz = Class.forName("org.hsqldb.persist.NIOLockFile");
+                    clazz = Class.forName(HSQL_PACKAGE+".persist.NIOLockFile");
                     avail = true;
                 } catch (Exception e) {}
             }

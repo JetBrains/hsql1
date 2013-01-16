@@ -45,6 +45,7 @@ import java.sql.Statement;
 import junit.framework.TestCase;
 
 import org.hsqldb.jdbc.jdbcDataSource;
+import static org.hsqldb.DatabaseURL.S_URL_PREFIX;
 
 /**
  * Test case to demonstrate catastrophic bug in cascade delete code.
@@ -67,7 +68,7 @@ public class TestCascade extends TestCase {
 
             jdbcDataSource dataSource = new jdbcDataSource();
 
-            dataSource.setDatabase("jdbc:hsqldb:testdb");
+            dataSource.setDatabase(S_URL_PREFIX+"testdb");
 
             con = dataSource.getConnection("sa", "");
         } catch (Exception e) {
@@ -121,7 +122,7 @@ public class TestCascade extends TestCase {
 
         jdbcDataSource dataSource = new jdbcDataSource();
 
-        dataSource.setDatabase("jdbc:hsqldb:testdb");
+        dataSource.setDatabase(S_URL_PREFIX+"testdb");
 
         Connection con   = dataSource.getConnection("sa", "");
         String[]   saDDL = {

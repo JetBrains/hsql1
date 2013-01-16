@@ -42,6 +42,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 /* $Id: RCData.java,v 1.17 2007/05/13 15:27:37 fredt Exp $ */
 
 /**
@@ -51,7 +53,7 @@ import java.util.StringTokenizer;
  */
 public class RCData {
 
-    public static final String DEFAULT_JDBC_DRIVER   = "org.hsqldb.jdbcDriver";
+    public static final String DEFAULT_JDBC_DRIVER   = HSQL_PACKAGE+".jdbcDriver";
     private String             defaultJdbcDriverName = DEFAULT_JDBC_DRIVER;
 
     public void setDefaultJdbcDriver(String defaultJdbcDriverName) {

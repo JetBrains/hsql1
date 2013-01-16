@@ -35,6 +35,10 @@ import java.lang.reflect.Constructor;
 
 import org.hsqldb.lib.IntValueHashMap;
 
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
+import static org.hsqldb.ServerConstants.HSQL_PACKAGE;
+
 // fredt@users - 1.7.2 - structural modifications to allow inheritance
 // boucherB@users 20020305 - completed inheritance work, including final access
 // boucherB@users 20020305 - javadoc updates/corrections
@@ -315,10 +319,10 @@ class DatabaseInformation {
         Class c = null;
 
         try {
-            c = Class.forName("org.hsqldb.DatabaseInformationFull");
+            c = Class.forName(HSQL_PACKAGE+".DatabaseInformationFull");
         } catch (Exception e) {
             try {
-                c = Class.forName("org.hsqldb.DatabaseInformationMain");
+                c = Class.forName(HSQL_PACKAGE+".DatabaseInformationMain");
             } catch (Exception e2) {
                 c = DatabaseInformation.class;
             }
