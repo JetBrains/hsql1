@@ -179,21 +179,21 @@ rel=copyright href="http://hsqldb.sourceforge.net">
       d) is not called because the parameter d is 'null'. 
     <li>When a parameter can be null, don't use the basic data types (for example 
       int) use the class instead (for example java.lang.Integer). 
-    <li>An example for functions with optional parameters is org.hsqldb.substring(String 
-      s,int start,Integer length): the parameters 'length' is optional. If not 
-      provided by the user, it is filled with 'null' by the system, and the function 
-      is called. 
-    <li>If you need a Connection in your function, just provide a parameter, 'Connection'. 
-      This parameter will be filled by HSQLDB. Example is the function org.hsqldb.Library.user(Connection 
-      conn). The function is called by the user with: CALL USER() 
-    <li>Stored procedures (or 'constants' like PI) with no parameters are called 
+    <li>An example for functions with optional parameters is org.hsqldb1.substring(String
+     s,int start,Integer length): the parameters &apos;length&apos; is optional. If not
+     provided by the user, it is filled with &apos;null&apos; by the system, and the function
+     is called.
+     <li>If you need a Connection in your function, just provide a parameter, &apos;Connection&apos;.
+         This parameter will be filled by HSQLDB. Example is the function org.hsqldb1.Library.user(Connection
+         conn). The function is called by the user with: CALL USER()
+     <li>Stored procedures (or 'constants' like PI) with no parameters are called
       with brackets: PI(). PI alone can be a (table- or column-) name. </li>
   </ul>
   <p>There is also a security mechanism provided: Access to each class can be 
     granted / revoked to a user: </p>
   <p> GRANT ALL ON "java.lang.Math" TO PUBLIC </p>
-  <p> By default, all users have access to java.lang.Math and org.hsqldb.Library. 
-    <center>
+  <p> By default, all users have access to java.lang.Math and org.hsqldb1.Library.
+     <center>
     </center>
   <p align="center"><br>
     <br>

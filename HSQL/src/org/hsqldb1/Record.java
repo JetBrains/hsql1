@@ -68,14 +68,24 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+import org.hsqldb1.lib.java.JavaSystem;
 
-public class hsqlServlet extends Servlet {
+/**
+ * A node in a Result linked list.
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version 1.7.0
+ * @since Hypersonic SQL
+ */
+public class Record {
 
-    public hsqlServlet() {
-        super();
+    // structure member
+    public Object[] data;
+    public Record   next;
+
+    Record() {
+        JavaSystem.memoryRecords++;
     }
 }

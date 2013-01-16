@@ -68,14 +68,50 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+import org.hsqldb1.HsqlNameManager.HsqlName;
 
-public class hsqlServlet extends Servlet {
+/**
+ * This class consists of the data structure for a Constraint. This
+ * structure is shared between two Constraint Objects that together form a
+ * foreign key constraint. This simplifies structural modifications to a
+ * table. When changes to the column indexes are applied to the table's
+ * Constraint Objects, they are reflected in the Constraint Objects of any
+ * other table that shares a foreign key constraint with the modified
+ * table.
+ *
+ * New class based on Hypersonic original
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version 1.7.1
+ * @since 1.7.1
+ */
+class ConstraintCore {
 
-    public hsqlServlet() {
-        super();
-    }
+    // fkName and pkName are for foreign keys only
+    HsqlName fkName;
+    HsqlName pkName;
+
+    // iLen is the number of columns involved in the constraint.
+    // it is equal to the size of iColMain but can be smaller than the
+    // size of iColRef
+    int colLen;
+
+    // Main is the sole table in a UNIQUE constraint
+    // Or the table that is referenced by FOREIGN KEY ... REFERENCES
+    Table mainTable;
+    int[] mainColArray;
+    Index mainIndex;
+
+    // Ref is the table that has a reference to the main table
+    Table refTable;
+    int[] refColArray;
+    Index refIndex;
+    int   deleteAction;
+    int   updateAction;
+
+    //
+    Expression  check;
+    TableFilter checkFilter;
 }

@@ -68,14 +68,127 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+import java.io.IOException;
 
-public class hsqlServlet extends Servlet {
+import org.hsqldb1.rowio.RowOutputInterface;
 
-    public hsqlServlet() {
-        super();
+/**
+ *  Common MEMORY and TEXT table node implementation. Nodes are always in
+ *  memory so an Object reference is used to access the other Nodes in the
+ *  AVL tree.
+ *
+ *  New class derived from the Hypersonic code
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version    1.7.2
+ * @since Hypersonic SQL
+ */
+abstract class BaseMemoryNode extends Node {
+
+    protected Node nLeft;
+    protected Node nRight;
+    protected Node nParent;
+
+    void delete() {
+        iBalance = -2;
+        nLeft    = nRight = nParent = null;
     }
+
+    Node getLeft() throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        return nLeft;
+    }
+
+    void setLeft(Node n) throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        nLeft = n;
+    }
+
+    boolean isLeft(Node node) throws HsqlException {
+        return nLeft == node;
+    }
+
+    boolean isRight(Node node) throws HsqlException {
+        return nRight == node;
+    }
+
+    Node getRight() throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        return nRight;
+    }
+
+    void setRight(Node n) throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        nRight = n;
+    }
+
+    Node getParent() throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        return nParent;
+    }
+
+    boolean isRoot() {
+        return nParent == null;
+    }
+
+    void setParent(Node n) throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        nParent = n;
+    }
+
+    void setBalance(int b) throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        iBalance = b;
+    }
+
+    boolean isFromLeft() throws HsqlException {
+
+        if (this.isRoot()) {
+            return true;
+        }
+
+        Node parent = getParent();
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(parent != null);
+        }
+
+        return equals(parent.getLeft());
+    }
+
+    boolean equals(Node n) {
+        return n == this;
+    }
+
+    void write(RowOutputInterface out) throws IOException {}
 }

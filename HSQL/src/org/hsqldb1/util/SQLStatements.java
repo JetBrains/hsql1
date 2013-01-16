@@ -68,14 +68,33 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1.util;
 
-import org.hsqldb1.Servlet;
+import java.io.Serializable;
 
-public class hsqlServlet extends Servlet {
+/**
+ * container for set of SQL statements
+ *
+ * New class based on Hypersonic SQL code.
+ *
+ * @version 1.7.1
+ * @since 1.7.1
+ */
+class SQLStatements implements Serializable {
 
-    public hsqlServlet() {
-        super();
-    }
+    String  sSchema, sType;
+    String  sDatabaseToConvert;
+    String  sSourceTable, sDestTable;
+    String  sDestDrop, sDestCreate, sDestInsert, sDestDelete;
+    String  sDestDropIndex, sDestCreateIndex, sDestAlter, sSourceSelect;
+    boolean bTransfer    = true;
+    boolean bCreate      = true;
+    boolean bDelete      = true;
+    boolean bDrop        = true;
+    boolean bCreateIndex = true;
+    boolean bDropIndex   = true;
+    boolean bInsert      = true;
+    boolean bAlter       = true;
+    boolean bFKForced    = false;
+    boolean bIdxForced   = false;
 }

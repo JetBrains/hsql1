@@ -68,14 +68,93 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1.lib;
 
-import org.hsqldb1.Servlet;
+/**
+ * FastQSorts the [l,r] partition (inclusive) of the specfied array of
+ * Rows, using the comparator.
+ *
+ * Modified from the original method in Hypersonic with the addition of
+ * the comparator. (fredt@users)
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version 1.7.2
+ * @since 1.7.2
+ */
+public class Sort {
 
-public class hsqlServlet extends Servlet {
+    public static final void sort(Object[] w, ObjectComparator comparator,
+                                  int l, int r) {
 
-    public hsqlServlet() {
-        super();
+        int    i;
+        int    j;
+        Object p;
+
+        if (l > r) {
+            return;
+        }
+
+        while (r - l > 10) {
+            i = (r + l) >>> 1;
+
+            if (comparator.compare(w[l], w[r]) > 0) {
+                swap(w, l, r);
+            }
+
+            if (comparator.compare(w[i], w[l]) < 0) {
+                swap(w, l, i);
+            } else if (comparator.compare(w[i], w[r]) > 0) {
+                swap(w, i, r);
+            }
+
+            j = r - 1;
+
+            swap(w, i, j);
+
+            p = w[j];
+            i = l;
+
+            while (true) {
+                while (comparator.compare(w[++i], p) < 0) {
+                    ;
+                }
+
+                while (comparator.compare(w[--j], p) > 0) {
+                    ;
+                }
+
+                if (i >= j) {
+                    break;
+                }
+
+                swap(w, i, j);
+            }
+
+            swap(w, i, r - 1);
+            sort(w, comparator, l, i - 1);
+
+            l = i + 1;
+        }
+
+        for (i = l + 1; i <= r; i++) {
+            Object t = w[i];
+
+            for (j = i - 1; j >= l && comparator.compare(w[j], t) > 0; j--) {
+                w[j + 1] = w[j];
+            }
+
+            w[j + 1] = t;
+        }
+    }
+
+    /**
+     * Swaps the a'th and b'th elements of the specified Row array.
+     */
+    private static void swap(Object[] w, int a, int b) {
+
+        Object t = w[a];
+
+        w[a] = w[b];
+        w[b] = t;
     }
 }

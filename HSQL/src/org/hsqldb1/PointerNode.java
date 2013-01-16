@@ -68,14 +68,69 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+// fredt@users 20020221 - patch 513005 by sqlbob@users (RMP)
+// fredt@users 20020920 - path 1.7.1 - refactoring to cut mamory footprint
+// fredt@users 20021205 - path 1.7.2 - enhancements
+// fredt@users 20021215 - doc 1.7.2 - javadoc comments
 
-public class hsqlServlet extends Servlet {
+/**
+ *  Text table node implementation.<p>
+ *  Nodes for the AVL tree are all built and kept in memory while the actual
+ *  row data is accessed via TextCache from disk.<p>
+ *  This differs from MemoryNode by maintaining an integral pointer for the
+ *  Row data instead of a Java reference.
+ *
+ * New class based on Hypersonic SQL code.
+ *
+ * @author fredt@users
+ * @version 1.8.0
+ * @since 1.7.1
+ */
+class PointerNode extends BaseMemoryNode {
 
-    public hsqlServlet() {
-        super();
+    int           iData = NO_POS;
+    private Table tTable;
+    private Node  nPrimary;    // node of key / primary index for this row
+
+    PointerNode(CachedRow r, int id) {
+
+        tTable   = r.getTable();
+        iData    = r.iPos;
+        nPrimary = r.nPrimaryNode == null ? this
+                                          : r.nPrimaryNode;
+    }
+
+    void delete() {
+
+        super.delete();
+
+        nPrimary = null;
+        tTable   = null;
+    }
+
+    int getKey() {
+        return iData;
+    }
+
+    Row getRow() throws HsqlException {
+
+        if (iData == NO_POS) {
+            return null;
+        }
+
+        CachedRow r = tTable.getRow(iData, nPrimary);
+
+        return r;
+    }
+
+    Object[] getData() throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        return getRow().getData();
     }
 }

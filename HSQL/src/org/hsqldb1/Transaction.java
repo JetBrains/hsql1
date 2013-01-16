@@ -68,14 +68,97 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+/**
+ * Represents a single row table operation.
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version 1.8.0
+ * @since Hypersonic SQL
+ */
+class Transaction {
 
-public class hsqlServlet extends Servlet {
+    boolean isDelete;
+    Table   tTable;
+    Row     row;
+    long    SCN;
 
-    public hsqlServlet() {
-        super();
+    /**
+     * Constructor. <p>
+     *
+     * @param delete if true, this represents a single row delete action, else
+     *      a single row insert action
+     * @param nested true if this action is part of a transaction initiated
+     *  within an INSERT INTO or UPDATE statement
+     * @param table the Table object against which the operation occured
+     * @param row the row data that iis inserted or deleted
+     */
+    Transaction(boolean delete, Table table, Row row, long SCN) {
+
+        isDelete = delete;
+        tTable   = table;
+        this.row = row;
+    }
+
+    /**
+     * Undoes the single row delete or insert represented by this object.
+     *
+     * @param session the session context in which to perform the undo
+     * @param log if true log the work
+     * @throws HsqlException if a database access error occurs
+     */
+    void rollback(Session session, boolean log) {
+
+        try {
+            if (isDelete) {
+                tTable.insertNoCheckRollback(session, row, log);
+            } else {
+                tTable.deleteNoCheckRollback(session, row, log);
+            }
+        } catch (Exception e) {
+
+//            System.out.println("rollback error: isDelete " + isDelete);
+        }
+    }
+
+    void commit(Session session) {
+
+        try {
+            if (isDelete) {
+                tTable.removeRowFromStore(row);
+            } else {
+                tTable.commitRowToStore(row);
+            }
+        } catch (Exception e) {
+
+//            System.out.println("rollback error: isDelete " + isDelete);
+        }
+    }
+
+    void logRollback(Session session) {
+
+        try {
+            if (isDelete) {
+                tTable.database.logger.writeInsertStatement(session, tTable,
+                        row.getData());
+            } else {
+                tTable.database.logger.writeDeleteStatement(session, tTable,
+                        row.getData());
+            }
+        } catch (Exception e) {}
+    }
+
+    void logAction(Session session) {
+
+        try {
+            if (isDelete) {
+                tTable.database.logger.writeDeleteStatement(session, tTable,
+                        row.getData());
+            } else {
+                tTable.database.logger.writeInsertStatement(session, tTable,
+                        row.getData());
+            }
+        } catch (Exception e) {}
     }
 }

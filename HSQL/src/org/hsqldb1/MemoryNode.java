@@ -68,14 +68,53 @@
  */
 
 
-// This dummy class is required only because
-// the Servlets class must be in the root directory
+package org.hsqldb1;
 
-import org.hsqldb1.Servlet;
+// fredt@users 20020221 - patch 513005 by sqlbob@users (RMP)
 
-public class hsqlServlet extends Servlet {
+/**
+ *  Memory table node implementation.
+ *
+ * New class by fredt@users based on original Hypersonic code.
+ *
+ * @author Thomas Mueller (Hypersonic SQL Group)
+ * @version 1.7.1
+ * @since 1.7.1
+ */
+class MemoryNode extends BaseMemoryNode {
 
-    public hsqlServlet() {
-        super();
+    protected Row rData;
+
+    /**
+     *  A MemoreyNode is permenently linked with the row it refers to.
+     *
+     * @param  r
+     */
+    public MemoryNode(Row r) {
+        rData = r;
+    }
+
+    int getKey() {
+        return 0;
+    }
+
+    Row getRow() throws HsqlException {
+        return rData;
+    }
+
+    Object[] getData() throws HsqlException {
+
+        if (Trace.DOASSERT) {
+            Trace.doAssert(iBalance != -2);
+        }
+
+        return rData.getData();
+    }
+
+    void delete() {
+
+        super.delete();
+
+        rData = null;
     }
 }
