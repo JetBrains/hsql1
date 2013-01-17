@@ -31,13 +31,13 @@
 
 package org.hsqldb1.resources;
 
+import org.hsqldb1.lib.HashMap;
+import org.hsqldb1.lib.HsqlArrayList;
+
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
-
-import org.hsqldb1.lib.HashMap;
-import org.hsqldb1.lib.HsqlArrayList;
 
 /**
  * A ResourceBundle helper class. <p>
@@ -73,7 +73,7 @@ public final class BundleHandler {
      * The resource path prefix of the <code>ResourceBundle</code> objects
      * handled by this class.
      */
-    private static final String prefix = "org/hsqldb/resources/";
+    private static final String prefix = "org/hsqldb1/resources/";
 
     /** JDK 1.1 compliance */
     private static final Method newGetBundleMethod = getNewGetBundleMethod();
